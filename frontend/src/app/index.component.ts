@@ -3,11 +3,11 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+  selector: 'index',
+  templateUrl: './index.component.html'
 })
 
 
-export class AppComponent {
+export class IndexComponent {
 
 }
