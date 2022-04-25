@@ -1,0 +1,78 @@
+<!-- Section-->
+<section class="section-login py-5">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="card-login border-0 shadow rounded-3 my-5">
+                  <div class="card-body p-4 p-sm-5">
+                      <div class="container">
+                          <div class="row">
+                              <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
+                          </div>
+                          <div class="row">
+                              <form id="form-login" action="/login" method="post">
+                                  <div class="form-floating mb-3">
+                                      <input type="text" class="form-control" id="floatingUsername"
+                                             placeholder="Username" name="usernameLogin" required>
+                                      <label for="floatingUsername">Username</label>
+                                  </div>
+                                  <div class="form-floating mb-3">
+                                      <input type="password" class="form-control" id="floatingPassword"
+                                             placeholder="Password" name="passwordLogin" required>
+                                      <label for="floatingPassword">Password</label>
+                                  </div>
+                                  <div class="d-grid">
+                                      <button class="btn btn-outline-dark btn-login text-uppercase fw-bold"
+                                              type="submit" onclick="signIn()">Sign in
+                                      </button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="card-register border-0 shadow rounded-3 my-5">
+                  <div class="card-body p-4 p-sm-5">
+                      <div class="container">
+                          <div class="row">
+                              <h5 class="card-title text-center mb-5 fw-light fs-5">Sign Up</h5>
+                          </div>
+                          <div class="row">
+                              <form id="form-register" action="/login/register" method="post">
+
+                                  <div class="form-floating mb-3">
+                                      <input type="text" class="form-control" id="floatingUsernameReg"
+                                             placeholder="Username" name="Username" required>
+                                      <label for="floatingUsernameReg">Username</label>
+                                  </div>
+                                  <div class="form-floating mb-3">
+                                      <input type="email" class="form-control" id="floatingEmailReg"
+                                             placeholder="name@example.com" name="email" required>
+                                      <label for="floatingEmailReg">Email address</label>
+                                  </div>
+                                  <div class="form-floating mb-3">
+                                      <input type="password" class="form-control" id="floatingPasswordReg"
+                                             placeholder="Password" name="password" required>
+                                      <label for="floatingPasswordReg">Password</label>
+                                  </div>
+                                  <div class="form-floating mb-3">
+                                      <input type="password" class="form-control" id="floatingPasswordRepeatReg"
+                                             placeholder="Confirmation Password" name="confPassword" required>
+                                      <label for="floatingPasswordRepeatReg">Repeat Password</label>
+                                  </div>
+                                  <div class="d-grid">
+                                      <button class="btn btn-outline-dark btn-login text-uppercase fw-bold"
+                                              type="submit" onclick="register()">Sign up
+                                      </button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

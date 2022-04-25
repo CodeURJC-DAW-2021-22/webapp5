@@ -3,11 +3,11 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+  selector: 'login',
+  templateUrl: './login.component.html'
 })
 
 
-export class AppComponent {
-  admin = true;
+export class LoginComponent {
+
 }
