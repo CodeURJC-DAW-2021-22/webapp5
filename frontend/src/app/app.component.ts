@@ -9,5 +9,5 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 
 export class AppComponent {
-
+  admin = true;
 }
