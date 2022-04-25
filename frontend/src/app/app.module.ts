@@ -10,6 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndexComponent } from './components/index.component';
 import { AdminHeaderComponent } from './components/adminHeader.component';
 import { AboutComponent } from './components/about.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
@@ -20,7 +22,9 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
