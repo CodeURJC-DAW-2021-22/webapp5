@@ -6,7 +6,7 @@ ENV WEBAPP_VERSION=lastest
 WORKDIR /usr/share/app
 
 COPY backend/pom.xml /usr/share/app/pom.xml
-RUN mvn clean compile && mvn -B -f pom.xml dependency:resolve
+RUN mvn clean && mvn -B -f pom.xml dependency:resolve
 COPY backend/src /usr/share/app/src
 RUN mvn package
 

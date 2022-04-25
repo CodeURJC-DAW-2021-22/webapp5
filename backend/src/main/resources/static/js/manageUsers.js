@@ -15,8 +15,6 @@ function more() {
         }).done(function (users) {
         	for(let i=0; i<users.length; i++) {
         		let user= users[i];
-        		console.log(user.phoneNumber);
-        		console.log(user.mobileNumber);
         		$("tbody").append("<tr id=\"user-"+user.id+"\">\r\n"
         				+ "                            <td scope=\"row\" class=\"user-id\">"+user.id+"</td>\r\n"
         				+ "                            <td class=\"user-username\">"+user.username+"</td>\r\n"
@@ -29,7 +27,7 @@ function more() {
         				+ "                            <td class=\"user-role\">"+user.role+"</td>\r\n"
         				+ "                            <td><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#modalAddEditUserData\"\r\n"
         				+ "                                data-id=\""+user.id+"\" onclick=\"edit_user_load($(this).data('id'));\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></button></td>\r\n"
-        				+ "                            <td><button data-id=\""+user.id+"\" onclick=\"delete_user($(this).data('id'));\" class=\"btn btn-primary\" type=\"button\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button></td>\r\n"
+        				+ "                            <td><button data-id=\""+user.id+"\" onclick=\"deleteUser($(this).data('id'));\" class=\"btn btn-primary\" type=\"button\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button></td>\r\n"
         				+ "                          </tr>")
         	}
         	
@@ -106,7 +104,7 @@ function updateUser() {
 
 function deleteUser(id) {
 	$.ajax({
-        url: "/api/users/deleteUser/"+id,
+        url: "/api/users/"+id,
         type: "DELETE",
         success: function(result) {
         	 success_alert();
