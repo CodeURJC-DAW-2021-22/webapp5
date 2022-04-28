@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 const BASE_URL = '/api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
 
-    logged: boolean | undefined;
+    logged: boolean;
     user: User | undefined;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
+        this.logged = false;
+        this.user= undefined;
         this.reqIsLogged();
     }
 
@@ -24,6 +27,7 @@ export class LoginService {
                 if (error.status != 404) {
                     console.error('Error when asking if logged: ' + JSON.stringify(error));
                 }
+
             }
         );
 
@@ -33,7 +37,7 @@ export class LoginService {
 
         this.http.post(BASE_URL + "/login", { username: user, password: pass }, { withCredentials: true })
             .subscribe(
-                (response) => this.reqIsLogged(),
+                (response) => {this.reqIsLogged(), this.router.navigate(['']);},
                 (error) => alert("Wrong credentials")
             );
 
@@ -46,8 +50,17 @@ export class LoginService {
                 console.log("LOGOUT: Successfully");
                 this.logged = false;
                 this.user = undefined;
+                this.router.navigate(['']);
             });
 
+    }
+
+    register(data: { id?: string; username: string; password: any; email: string; name?: string; lastName?: string; address?: string; mobileNumber?: string; birthdate?: string; role: string }){
+      this.http.post("api/users/", data)
+            .subscribe(
+                (response) => this.logIn(data.username, data.password),
+                (error) => alert("Wrong credentials")
+            );
     }
 
     isLogged() {

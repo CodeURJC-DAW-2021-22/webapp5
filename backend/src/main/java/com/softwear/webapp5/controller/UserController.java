@@ -83,6 +83,15 @@ public class UserController {
         return "purchaseHistory";
     }
     
+
+	@PostMapping("/login")
+	public void login(Model model, HttpServletRequest request, ShopUser u){
+		try {
+			request.login(u.getUsername(), u.getPassword());
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+	}
     
 	@GetMapping("/login") //Missing id
 	public String loginPage(Model model, HttpServletRequest request) {

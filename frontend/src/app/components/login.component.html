@@ -1,3 +1,4 @@
+<headerUser></headerUser>
 <!-- Section-->
 <section class="section-login py-5">
   <div class="container">
@@ -43,28 +44,33 @@
                               <form id="form-register" action="/login/register" method="post">
 
                                   <div class="form-floating mb-3">
-                                      <input type="text" class="form-control" id="floatingUsernameReg"
+                                      <input #username type="text" class="form-control" id="floatingUsernameReg"
                                              placeholder="Username" name="Username" required>
                                       <label for="floatingUsernameReg">Username</label>
                                   </div>
                                   <div class="form-floating mb-3">
-                                      <input type="email" class="form-control" id="floatingEmailReg"
+                                      <input #email type="email" class="form-control" id="floatingEmailReg"
                                              placeholder="name@example.com" name="email" required>
                                       <label for="floatingEmailReg">Email address</label>
                                   </div>
                                   <div class="form-floating mb-3">
-                                      <input type="password" class="form-control" id="floatingPasswordReg"
+                                    <input #mobilenumber type="number" class="form-control" id="floatingMobileNumber"
+                                           placeholder="Number" name="mobileNumber" required>
+                                    <label for="floatingMobileNumber">Mobile number</label>
+                                </div>
+                                  <div class="form-floating mb-3">
+                                      <input #password type="password" class="form-control" id="floatingPasswordReg"
                                              placeholder="Password" name="password" required>
                                       <label for="floatingPasswordReg">Password</label>
                                   </div>
                                   <div class="form-floating mb-3">
-                                      <input type="password" class="form-control" id="floatingPasswordRepeatReg"
+                                      <input #confpassword type="password" class="form-control" id="floatingPasswordRepeatReg"
                                              placeholder="Confirmation Password" name="confPassword" required>
                                       <label for="floatingPasswordRepeatReg">Repeat Password</label>
                                   </div>
                                   <div class="d-grid">
                                       <button class="btn btn-outline-dark btn-login text-uppercase fw-bold"
-                                              type="submit" onclick="register()">Sign up
+                                              type="submit" (click)="register(username.value, email.value, mobilenumber.value, password.value, confpassword.value)">Sign up
                                       </button>
                                   </div>
                               </form>

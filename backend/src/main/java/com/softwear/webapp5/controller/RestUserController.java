@@ -104,11 +104,11 @@ public class RestUserController {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<ShopUser> create(@RequestBody ShopUser u) {
+	public ResponseEntity<ShopUserView> create(@RequestBody ShopUser u) {
 		u.setPassword(passwordEncoder.encode(u.getPassword()));
 		userService.saveUser(u);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(u.getId()).toUri();
-		return ResponseEntity.created(location).body(u);
+		return ResponseEntity.created(location).body(new ShopUserView(u));
 	}
 	
 	@DeleteMapping("/{id}")

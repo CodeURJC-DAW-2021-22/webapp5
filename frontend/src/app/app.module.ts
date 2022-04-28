@@ -1,3 +1,5 @@
+import { UserProfileComponent } from './components/userProfile.component';
+import { AdminHomeComponent } from './components/adminHome.component';
 import { LoginComponent } from './components/login.component';
 import { FooterComponent } from './components/footer.component';
 import { HeaderComponent } from './components/header.component';
@@ -17,7 +19,7 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent, AdminHeaderComponent, FooterComponent, IndexComponent, LoginComponent, AboutComponent
+    AppComponent, HeaderComponent, AdminHeaderComponent, FooterComponent, IndexComponent, LoginComponent, AboutComponent, AdminHomeComponent, UserProfileComponent
   ],
   imports: [
     BrowserModule,

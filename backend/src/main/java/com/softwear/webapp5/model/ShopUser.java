@@ -19,7 +19,6 @@ public class ShopUser {
 	private String name;
 	private String lastName;
 	@Column(nullable = false)
-
 	private String password;
 	private String address;
 	
