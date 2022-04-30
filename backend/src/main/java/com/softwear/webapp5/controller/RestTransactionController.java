@@ -385,6 +385,32 @@ public class RestTransactionController {
         }
         return ResponseEntity.status(403).build();
     }
+    
+    @GetMapping("/transactions/purchaseHistory/me")
+    public ResponseEntity<List<Transaction>> getPurchaseHistory(HttpServletRequest request, @RequestParam(required=false) Integer page){
+        Optional<ShopUser> oUser = userService.findByUsername(request.getUserPrincipal().getName());
+        if(oUser.isPresent()) {
+    	    if(page!=null) {
+	    	    if(page>0) {
+                    List<Transaction> transactions = new ArrayList<>();
+	                for(Transaction transaction: transactionService.findPurchaseHistory(oUser.get(), PageRequest.of(page-1, 10))) {
+	                    transactions.add(transaction);
+                    }
+                    return ResponseEntity.ok(transactions);
+                }
+    	    }
+		    return ResponseEntity.ok(transactionService.findPurchaseHistory(oUser.get()));
+        }
+        return ResponseEntity.status(403).build();
+    }
+    
+    @GetMapping("/transactions/purchaseHistory/me/maxPages")
+    public ResponseEntity<Integer> getPurchaseHistoryMaxPages(HttpServletRequest request){
+        Optional<ShopUser> oUser = userService.findByUsername(request.getUserPrincipal().getName());
+        if(oUser.isPresent())
+		    return ResponseEntity.ok(transactionService.findPurchaseHistory(oUser.get(), PageRequest.of(0, 10)).getTotalPages());
+        return ResponseEntity.status(403).build();
+    }
 
     private ShopUser getDbUserFromIdUserInTransaction(Transaction transaction) {
         try{ //If its null it throws an exception, if it's not and it exists we return it
