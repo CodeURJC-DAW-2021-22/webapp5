@@ -181,6 +181,7 @@ public class TransactionService {
         if (optCart.isPresent()) {
             transactionRepository.delete(optCart.get());
         }
+        //transactionRepository.save(new Transaction("CART", user, null, getCurrentDate(), new ArrayList<>()));
     }
 
     public boolean addToWishlist(Long productId, ShopUser user) {

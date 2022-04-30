@@ -19,7 +19,7 @@ public class ShopUser {
 	private String name;
 	private String lastName;
 	@Column(nullable = false)
-
+	@JsonIgnore
 	private String password;
 	private String address;
 	
