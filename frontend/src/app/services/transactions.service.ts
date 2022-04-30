@@ -36,8 +36,8 @@ export class TransactionsService {
     ) as Observable<Transaction>;
   }
 
-  addProductToCart(id: number | string) {
-    return this.httpClient.post(BASE_CART_URL + '/products/' + id, "", { withCredentials: true }).pipe(
+  addProductToCart(id: number | string, quantity: number | string) {
+    return this.httpClient.post(BASE_CART_URL + '/products/' + id + '?quantity=' + quantity, "", { withCredentials: true }).pipe(
       catchError(error => this.handleError(error))
     );
   }
