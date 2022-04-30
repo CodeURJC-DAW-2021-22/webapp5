@@ -30,7 +30,7 @@ public class TransactionService {
 
     public static String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
-        return String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)) + "/" + String.format("%02d", calendar.get(Calendar.MONTH)) + "/" + Integer.toString(calendar.get(Calendar.YEAR));
+        return String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)) + "/" + String.format("%02d", calendar.get(Calendar.MONTH) + 1) + "/" + Integer.toString(calendar.get(Calendar.YEAR));
     }
 
     public Optional<Transaction> findById(Long id) {
