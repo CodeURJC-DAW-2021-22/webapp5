@@ -21,18 +21,36 @@ interface TransactionView {
 export class PurchaseHistoryComponent {
 
   transactions: TransactionView[] = new Array<TransactionView>();
+  currentPage: number = 1;
+  maxPages: number = 1;
 
   constructor(private router: Router, private service: TransactionsService, private httpClient: HttpClient) {
     //this.loginService.reqIsLogged();
     this.httpClient.get("/api/users/me", {withCredentials: true}).subscribe({
-      complete: () => this.service.getPurchaseHistory().subscribe({
-        next: history => {
-          for(let transaction of history)
-            this.transactions.push(this.extractTransactionView(transaction));
-        },
-        error: error => console.error(error)
-      }),
+      complete: () => {
+        this.loadTransactions(this.currentPage);
+        this.httpClient.get("/api/transactions/purchaseHistory/me/maxPages", {withCredentials: true}).subscribe({
+          next: maxPages => this.maxPages = maxPages as number,
+          error: error => console.error(error)
+        });
+      },
       error: _ => this.router.navigate(['/login'])
+    });
+  }
+
+  more() {
+    if(this.currentPage < this.maxPages) {
+      this.loadTransactions(++this.currentPage);
+    }
+  }
+
+  private loadTransactions(page: number) {
+    this.service.getPurchaseHistory(page).subscribe({
+      next: history => {
+        for(let transaction of history)
+          this.transactions.push(this.extractTransactionView(transaction));
+      },
+      error: error => console.error(error)
     });
   }
 

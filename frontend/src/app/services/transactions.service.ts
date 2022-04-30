@@ -103,8 +103,8 @@ export class TransactionsService {
     );
   }
 
-  getPurchaseHistory(): Observable<Transaction[]> {
-    return this.httpClient.get('/api/userHistory', { withCredentials: true }).pipe(
+  getPurchaseHistory(page: number): Observable<Transaction[]> {
+    return this.httpClient.get("/api/transactions/purchaseHistory/me?page=" + page, { withCredentials: true }).pipe(
       map(transactions => transactions as Transaction[]),
       catchError(error => this.handleError(error))
     ) as Observable<Transaction[]>;

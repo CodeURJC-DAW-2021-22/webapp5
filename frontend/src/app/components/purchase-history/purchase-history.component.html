@@ -34,8 +34,5 @@
           </table>
       </div>
   </div>
-<!--{{#hasNext}}
-  <div class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" onclick="more()">More</a></div>
-  {{/hasNext}}
-  <meta id="max-pages" content="{{maxPages}}"/>-->
+  <div *ngIf="this.currentPage < this.maxPages" class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" (click)="more()">More</a></div>
 </div>
