@@ -320,7 +320,6 @@ public class RestTransactionController {
         if(oUser.isPresent()) {
             ShopUser user = oUser.get();
             Optional<Transaction> oCart = transactionService.findCart(user);
-            transactionService.emptyCart(user);
             if(oCart.isPresent()) {
                 return ResponseEntity.ok(oCart.get().getProducts().size());
             }
