@@ -387,8 +387,8 @@ public class RestTransactionController {
     }
     
     @GetMapping("/transactions/purchaseHistory/me")
-    public ResponseEntity<List<Transaction>> getPurchaseHistory(HttpServletRequest request, @RequestParam(required=false) Integer page){
-        Optional<ShopUser> oUser = userService.findByUsername(request.getUserPrincipal().getName());
+    public ResponseEntity<List<Transaction>> getPurchaseHistory(Model model, @RequestParam(required=false) Integer page){
+        Optional<ShopUser> oUser = userService.findByUsername((String) model.getAttribute("username"));
         if(oUser.isPresent()) {
     	    if(page!=null) {
 	    	    if(page>0) {
@@ -405,8 +405,8 @@ public class RestTransactionController {
     }
     
     @GetMapping("/transactions/purchaseHistory/me/maxPages")
-    public ResponseEntity<Integer> getPurchaseHistoryMaxPages(HttpServletRequest request){
-        Optional<ShopUser> oUser = userService.findByUsername(request.getUserPrincipal().getName());
+    public ResponseEntity<Integer> getPurchaseHistoryMaxPages(Model model){
+        Optional<ShopUser> oUser = userService.findByUsername((String) model.getAttribute("username"));
         if(oUser.isPresent())
 		    return ResponseEntity.ok(transactionService.findPurchaseHistory(oUser.get(), PageRequest.of(0, 10)).getTotalPages());
         return ResponseEntity.status(403).build();
