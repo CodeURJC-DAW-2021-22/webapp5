@@ -1,10 +1,10 @@
-import { LoginService } from './login.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Transaction } from '../models/transaction.model';
+import { Product } from '../models/product.model';
 
 const BASE_URL = '/api/transactions';
 const BASE_CART_URL = BASE_URL + '/cart/me';
@@ -83,6 +83,13 @@ export class TransactionsService {
       map(wishlist => wishlist as Transaction),
       catchError(error => this.handleError(error))
     ) as Observable<Transaction>;
+  }
+
+  getProductFromWishlist(id: number | string): Observable<Product> {
+    return this.httpClient.get(BASE_WISHLIST_URL + '/products/' + id, {withCredentials: true}).pipe(
+      map(product => product as Product),
+      catchError(error => this.handleError(error))
+    )
   }
 
   addProductToWishlist(id: number | string) {

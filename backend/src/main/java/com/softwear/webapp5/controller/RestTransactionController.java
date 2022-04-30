@@ -341,6 +341,21 @@ public class RestTransactionController {
         return ResponseEntity.status(403).build();
     }
 
+    @GetMapping("/transactions/wishlist/me/products/{productId}")
+    public ResponseEntity<Product> getProductFromWishlist(Model model, @PathVariable Long productId) {
+        Optional<ShopUser> oUser = userService.findByUsername((String) model.getAttribute("username"));
+        if(oUser.isPresent()) {
+            Optional<Product> oProduct = productService.findById(productId);
+            if(oProduct.isPresent()) {
+                oProduct = transactionService.findProductInWishlist(oUser.get(), oProduct.get().getName());
+                if(oProduct.isPresent())
+                    return ResponseEntity.ok(oProduct.get());
+            }
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(403).build();
+    }
+
     @PostMapping("/transactions/wishlist/me/products/{productId}")
     public ResponseEntity<Transaction> addProductToWishlist(Model model, @PathVariable Long productId) {
         Optional<ShopUser> oUser = userService.findByUsername((String) model.getAttribute("username"));
@@ -363,7 +378,7 @@ public class RestTransactionController {
             Optional<Product> oProduct = productService.findById(productId);
             if(oProduct.isPresent()) {
                 ShopUser user = oUser.get();
-                transactionService.removeFromWishlist(productId, user);
+                transactionService.removeFromWishlist(oProduct.get().getName(), user);
                 return ResponseEntity.ok(transactionService.findWishlist(user).get());
             }
             return ResponseEntity.notFound().build();

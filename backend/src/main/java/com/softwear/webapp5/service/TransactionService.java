@@ -188,18 +188,20 @@ public class TransactionService {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (optionalProduct.isPresent()){
             Product product = optionalProduct.get();
-            Optional<Transaction> optionalTransaction = transactionRepository.findWishlist(user);
-            Transaction wishlist;
-            if (optionalTransaction.isPresent()) {
-                wishlist = optionalTransaction.get();
-            } else {
-                wishlist = new Transaction("WISHLIST", user, null, getCurrentDate(), new ArrayList<>());
+            if(transactionRepository.findProductInWishlist(user, product.getName()).isEmpty()) {
+                Optional<Transaction> optionalTransaction = transactionRepository.findWishlist(user);
+                Transaction wishlist;
+                if (optionalTransaction.isPresent()) {
+                    wishlist = optionalTransaction.get();
+                } else {
+                    wishlist = new Transaction("WISHLIST", user, null, getCurrentDate(), new ArrayList<>());
+                }
+                if (!wishlist.getProducts().contains(product)) {
+                    wishlist.getProducts().add(product);
+                    updateAndSave(wishlist);
+                }
+                return true;
             }
-            if (!wishlist.getProducts().contains(product)) {
-                wishlist.getProducts().add(product);
-                updateAndSave(wishlist);
-            }
-            return true;
         }
         return false;
     }
