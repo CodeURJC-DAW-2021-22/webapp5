@@ -69,7 +69,7 @@ export class WishlistComponent {
 
   addToCart(index: number) {
     let entry: ProductEntry = this.entries[index];
-    this.service.addProductToCart(entry.id).subscribe({
+    this.service.addProductToCart(entry.id, 1).subscribe({
       error: error => console.error(error)
     });
   }

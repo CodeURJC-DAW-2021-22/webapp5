@@ -1,7 +1,8 @@
+import { CartEventService } from './../../services/cart-event.service';
 import { TransactionsService } from './../../services/transactions.service';
 import { Product } from './../../models/product.model';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Transaction } from 'src/app/models/transaction.model';
 
@@ -53,7 +54,7 @@ export class CartComponent {
     };
   }
 
-  constructor(private router: Router, private service: TransactionsService, private httpClient: HttpClient) {
+  constructor(private router: Router, private service: TransactionsService, private eventService: CartEventService, private httpClient: HttpClient) {
     //this.loginService.reqIsLogged();
     this.httpClient.get("/api/users/me", {withCredentials: true}).subscribe({
       complete: () => this.service.getCart().subscribe({
@@ -66,17 +67,21 @@ export class CartComponent {
 
   emptyCart() {
     this.service.emptyCart().subscribe({
-      complete: () => this.entries = new Array<ProductEntry>(),
+      complete: () => {
+        this.entries = new Array<ProductEntry>();
+        this.eventService.emitCartEvent("update");
+      },
       error: error => console.error(error)
     });
   }
 
   increaseQuantity(index: number) {
     let entry: ProductEntry = this.entries[index];
-    this.service.addProductToCart(entry.id).subscribe({
+    this.service.addProductToCart(entry.id, 1).subscribe({
       complete: () => {
         entry.quantity += 1;
         entry.totalPrice = entry.quantity * entry.product.price;
+        this.eventService.emitCartEvent("update");
       },
       error: error => console.error(error)
     });
@@ -91,6 +96,7 @@ export class CartComponent {
         complete: () => {
           entry.quantity -= 1;
           entry.totalPrice = entry.quantity * entry.product.price;
+          this.eventService.emitCartEvent("update");
         },
         error: error => console.error(error)
       });
@@ -100,7 +106,10 @@ export class CartComponent {
   delete(index: number) {
     let entry: ProductEntry = this.entries[index];
     this.service.deleteAllProductFromCart(entry.id).subscribe({
-      complete: () => this.entries.splice(index, 1),
+      complete: () => {
+        this.entries.splice(index, 1);
+        this.eventService.emitCartEvent("update");
+      },
       error: error => console.error(error)
     });
   }
@@ -120,6 +129,7 @@ export class CartComponent {
   purchaseCart() {
     this.service.getCart().subscribe({
       next: cart => this.purchase(cart),
+      complete: () => this.eventService.emitCartEvent("update"),
       error: error => console.error(error)
     })
   }
@@ -127,7 +137,10 @@ export class CartComponent {
   private purchase(cart: Transaction) {
     if(this.checkCart(cart)) {
       this.service.purchaseCart(cart).subscribe({
-        complete: () => this.router.navigate(['/successfulPayment']),
+        complete: () => {
+          this.eventService.emitCartEvent("update");
+          this.router.navigate(['/successfulPayment'])
+        },
         error: error => console.error(error)
       });
     }
