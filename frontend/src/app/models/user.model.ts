@@ -6,7 +6,7 @@ export interface User{
     lastName: string;
     password?: string;
     address: string;
-    mobileNumber: number;
-    birthdate: string;
+    phoneNumber: number;
+    birthDate: string;
     role: string;
 }

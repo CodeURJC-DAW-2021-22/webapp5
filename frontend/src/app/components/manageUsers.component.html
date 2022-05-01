@@ -28,8 +28,8 @@
                   <td class="user-name" >{{user.name}}</td>
                   <td class="user-lastName" >{{user.lastName}}</td>
                   <td class="user-address">{{user.address}}</td>
-                  <td class="user-phone">{{user.mobileNumber}}</td>
-                  <td class="user-birthdate">{{user.birthdate}}</td>
+                  <td class="user-phone">{{user.phoneNumber}}</td>
+                  <td class="user-birthdate">{{user.birthDate}}</td>
                   <td class="user-role">{{user.role}}</td>
                   <td><button class="btn btn-primary" type="button" data-id="{{user.id}}" (click)="editUserLoad(user.id);"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
                   <td><button data-id="{{user.id}}" (click)="deleteUser(user.id)" class="btn btn-primary" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
@@ -88,11 +88,11 @@
                               </div>
                               <div class="form-group">
                                   <label for="editPhone">Phone Number</label>
-                                  <input type="tel" class="form-control" id="editPhone" placeholder="Phone Number" [(ngModel)]="mobileNumber" name="mobileNumber" required>
+                                  <input type="tel" class="form-control" id="editPhone" placeholder="Phone Number" [(ngModel)]="phoneNumber" name="mobileNumber" required>
                               </div>
                               <div class="form-group">
                                   <label for="editBirthDate">Birth Date</label>
-                                  <input type="text" class="form-control" id="editBirthDate" placeholder="Birth Date" [(ngModel)]="birthdate" name="birthdate">
+                                  <input type="text" class="form-control" id="editBirthDate" placeholder="Birth Date" [(ngModel)]="birthDate" name="birthdate">
                               </div>
                               <div class="form-group">
                                   <label for="editRole">Role *</label>

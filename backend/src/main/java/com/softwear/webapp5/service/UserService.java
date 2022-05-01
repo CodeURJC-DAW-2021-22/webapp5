@@ -50,8 +50,8 @@ public class UserService {
 		return shopUsers.findByAddress(address);
 	}
 	
-	public List<ShopUser> findByBirthdate (String birthdate){
-		return shopUsers.findByBirthdate(birthdate);
+	public List<ShopUser> findByBirthdate (String birthDate){
+		return shopUsers.findByBirthDate(birthDate);
 	}
 	
 	///////////////////////////////////////////
@@ -60,10 +60,10 @@ public class UserService {
 		
 		
 		oldShopUser.get().setAddress(u.getAddress());
-		oldShopUser.get().setBirthdate(u.getBirthdate());
+		oldShopUser.get().setBirthDate(u.getBirthDate());
 		oldShopUser.get().setEmail(u.getEmail());
 		oldShopUser.get().setLastName(u.getLastName());
-		oldShopUser.get().setMobileNumber(u.getMobileNumber());
+		oldShopUser.get().setPhoneNumber(u.getPhoneNumber());
 		oldShopUser.get().setName(u.getName());
 		
 		shopUsers.save(oldShopUser.get());
@@ -77,10 +77,10 @@ public class UserService {
 		if(pass){
 			oldShopUser.setPassword(u.getPassword());
 		}
-		oldShopUser.setBirthdate(u.getBirthdate());
+		oldShopUser.setBirthDate(u.getBirthDate());
 		oldShopUser.setEmail(u.getEmail());
 		oldShopUser.setLastName(u.getLastName());
-		oldShopUser.setMobileNumber(u.getMobileNumber());
+		oldShopUser.setPhoneNumber(u.getPhoneNumber());
 		oldShopUser.setName(u.getName());
 		oldShopUser.setRole(u.getRole());
 		

@@ -23,8 +23,8 @@ export class ManageUsersComponent{
   name!: string;
   lastName!: string;
   address!: string;
-  mobileNumber!: number;
-  birthdate!: string;
+  phoneNumber!: number;
+  birthDate!: string;
   role!: string;
   event: string;
 
@@ -35,7 +35,8 @@ export class ManageUsersComponent{
     this.event="";
 
     this.userService.getUserLogged().subscribe(
-      error => console.log("error")//this.router.navigate(['/login'])
+      user => console.log(""),
+      error => console.error(error)
     );
 
     this.userService.getUsers().subscribe(
@@ -61,14 +62,14 @@ export class ManageUsersComponent{
       element.classList.remove("fade");
 
       this.event="update";
-      this.id=id!-1;
+      this.id=id!;
       this.username = this.users[id!-1].username;
       this.email= this.users[id!-1].email;
       this.name= this.users[id!-1].name;
       this.lastName= this.users[id!-1].lastName;
       this.address= this.users[id!-1].address;
-      this.mobileNumber= this.users[id!-1].mobileNumber;
-      this.birthdate = this.users[id!-1].birthdate;
+      this.phoneNumber= this.users[id!-1].phoneNumber;
+      this.birthDate = this.users[id!-1].birthDate;
       this.password = "";
       this.role= this.users[id!-1].role;
 
@@ -86,8 +87,8 @@ export class ManageUsersComponent{
       this.name= "";
       this.lastName= "";
       this.address="";
-      this.mobileNumber= 0;
-      this.birthdate = "";
+      this.phoneNumber= 0;
+      this.birthDate = "";
       this.password = "";
       this.role= "";
 
@@ -104,8 +105,8 @@ export class ManageUsersComponent{
         name: this.name,
         lastName: this.lastName,
         address: this.address,
-        mobileNumber: this.mobileNumber,
-        birthdate: this.birthdate,
+        phoneNumber: this.phoneNumber,
+        birthDate: this.birthDate,
         role: this.role
       };
 

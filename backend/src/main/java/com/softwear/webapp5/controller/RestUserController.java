@@ -57,21 +57,26 @@ public class RestUserController {
 	}
 
 	@GetMapping("/")
-	public ResponseEntity<List<ShopUser>> get(@RequestParam(required=false) Integer page) {
+	public ResponseEntity<List<ShopUserView>> get(@RequestParam(required=false) Integer page) {
+		List<ShopUserView> listUser= new ArrayList<>();
 		if(page!=null) {
 			if(page>0) {
-				List<ShopUser> listUser= new ArrayList<>();
+				
 		        for(ShopUser u: userService.findAll(PageRequest.of(page-1, 1))) {
-		        	listUser.add(u);
+		        	listUser.add(new ShopUserView(u));
 		        }
 		        return ResponseEntity.ok(listUser);
 			}
 		}
-		return ResponseEntity.ok(userService.findAll());
+		List<ShopUser> uss= userService.findAll();
+		for(ShopUser u : userService.findAll()){
+			listUser.add(new ShopUserView(u));
+		}
+		return ResponseEntity.ok(listUser);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ShopUser> updateAdmin(@RequestBody ShopUser u, @PathVariable Long id) {
+	public ResponseEntity<ShopUserView> updateAdmin(@RequestBody ShopUser u, @PathVariable Long id) {
 		boolean pass= false;
 		if(!u.getPassword().equals("")){
 			u.setPassword(passwordEncoder.encode(u.getPassword()));
@@ -81,17 +86,17 @@ public class RestUserController {
 		
 		if(oldUser.isPresent()) {
 			userService.updateAdminInfo(oldUser.get(), u, pass);
-			return ResponseEntity.ok(oldUser.get());
+			return ResponseEntity.ok(new ShopUserView(oldUser.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/userInfo")
-	public ResponseEntity<ShopUser> updateUser(HttpServletRequest request, @RequestBody ShopUser u) {
+	public ResponseEntity<ShopUserView> updateUser(HttpServletRequest request, @RequestBody ShopUser u) {
 		Optional<ShopUser> oldUser = userService.findByUsername(request.getUserPrincipal().getName());
 	
 		userService.updateInfo(oldUser, u);
-		return ResponseEntity.ok(oldUser.get());
+		return ResponseEntity.ok(new ShopUserView(oldUser.get()));
 	}
 	
 	@PutMapping("/password")
@@ -116,11 +121,11 @@ public class RestUserController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ShopUser> delete(@PathVariable Long id) {
+	public ResponseEntity<ShopUserView> delete(@PathVariable Long id) {
 		Optional<ShopUser> user = userService.findById(id); 
 		if(user.isPresent()) {
 			userService.delete(id);
-			return ResponseEntity.ok(user.get());
+			return ResponseEntity.ok(new ShopUserView(user.get()));
 		}
 		
 		return ResponseEntity.notFound().build();

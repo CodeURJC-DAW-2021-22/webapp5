@@ -41,8 +41,8 @@ export class UserProfileComponent{
                 name: this.user.name,
                 lastName: this.user.lastName,
                 address: this.user.address,
-                mobileNumber: this.user.mobileNumber,
-                birthdate: this.user.birthdate,
+                phoneNumber: this.user.phoneNumber,
+                birthDate: this.user.birthDate,
                 role: ""
     };
 

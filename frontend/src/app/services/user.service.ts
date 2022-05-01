@@ -16,7 +16,7 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.httpClient.get(BASE_URL).pipe(
-      map(response => response as any)
+      map(response => response as User[])
     )
   }
 
@@ -26,7 +26,8 @@ export class UserService {
     )
   }
 
-  updateUser(data: { id: string; username: string; password?: any; email: string; name: string; lastName: string; address: string; mobileNumber: number; birthdate: string; role: string }): Observable<User>{
+  updateUser(data: { id: string; username: string; password?: any; email: string; name: string; lastName: string; address: string; phoneNumber: number; birthDate: string; role: string }): Observable<User>{
+    console.log(data.phoneNumber);
     return this.httpClient.put(BASE_URL+"userInfo", data).pipe(
       map(response => response as User)
     )
@@ -38,13 +39,13 @@ export class UserService {
     )
   }
 
-  updateUserAdmin(data: { id: number; username: string; password?: any; email: string; name: string; lastName: string; address: string; mobileNumber: number; birthdate: string; role: string }): Observable<User>{
+  updateUserAdmin(data: { id: number; username: string; password?: any; email: string; name: string; lastName: string; address: string; phoneNumber: number; birthDate: string; role: string }): Observable<User>{
     return this.httpClient.put(BASE_URL+data.id, data).pipe(
       map(response => response as User)
     )
   }
 
-  addUser(data: { id: number; username: string; password?: any; email: string; name: string; lastName: string; address: string; mobileNumber: number; birthdate: string; role: string }): Observable<User>{
+  addUser(data: { id: number; username: string; password?: any; email: string; name: string; lastName: string; address: string; phoneNumber: number; birthDate: string; role: string }): Observable<User>{
     return this.httpClient.post(BASE_URL, data).pipe(
       map(response => response as User)
     )
@@ -56,7 +57,7 @@ export class UserService {
     )
   }
 
-  register(data: { id?: string; username: string; password: any; email: string; name?: string; lastName?: string; address?: string; mobileNumber?: string; birthdate?: string; role: string }){
+  register(data: { id?: string; username: string; password: any; email: string; name?: string; lastName?: string; address?: string; phoneNumber?: string; birthDate?: string; role: string }){
 
     return this.httpClient.post(BASE_URL, data).pipe(
       map(response => response as User)
