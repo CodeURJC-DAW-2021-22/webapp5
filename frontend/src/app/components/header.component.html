@@ -1,20 +1,23 @@
+<!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- bg-light -->
   <div class="container px-4 px-lg-5">
       <a class="navbar-brand" [routerLink]="['/']"><img src="../assets/static/assets/full-logo-new.svg" style = "width: 5vw"></a>
-      <div class="nav-item user-icon-small-screen dropdown">
+      <div *ngIf="loginService.isLogged() else nologin" class="nav-item user-icon-small-screen dropdown">
           <a class="nav-link dropdown-toggle" id="session-small-Dropdown" href="#" role="button" data-bs-toggle="dropdown"
              aria-expanded="false"><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/userProfile">Profile</a></li>
-              <li><a class="dropdown-item" href="/admin/home">Admin Panel</a></li>
+              <li *ngIf="loginService.isAdmin()"><a class="dropdown-item" href="/admin/home">Admin Panel</a></li>
               <li><a class="dropdown-item" href="/wishlist">Wishlist</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                  <a class="dropdown-item" href="/logout" onclick="logOut()">Log Out</a>
+                  <button class="dropdown-item" onclick="loginService.logOut()">Log Out</button>
               </li>
           </ul>
       </div>
-      <a class="navbar-brand-2 user-icon-small-screen" [routerLink]="['/login']"><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
+      <ng-template #nologin>
+        <a class="navbar-brand-2 user-icon-small-screen" [routerLink]="['/login']"><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
+      </ng-template>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -34,22 +37,24 @@
           </form>
 
       </div>
-      <div class="nav-item user-icon-big-screen dropdown">
-          <a class="nav-link dropdown-toggle" id="sessionDropdown" href="#" role="button" data-bs-toggle="dropdown"
-             aria-expanded="false"><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/userProfile">Profile</a></li>
-              <li><a class="dropdown-item" href="/admin/home">Admin Panel</a></li>
-              <li><a class="dropdown-item" href="/wishlist">Wishlist</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                  <a class="dropdown-item" href="/logout" onclick="logOut()">Log Out</a>
+
+      <div ngbDropdown *ngIf="loginService.isLogged()" class="nav-item user-icon-big-screen dropdown">
+          <div class="nav-link dropdown-toggle" id="sessionDropdown" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false" ngbDropdownToggle><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></div>
+          <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li ngbDropdownItem><a class="dropdown-item" [routerLink]="['/userProfile']">Profile</a></li>
+              <li ngbDropdownItem *ngIf="loginService.isAdmin()"><a class="dropdown-item" [routerLink]="['/admin/home']">Admin Panel</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" href="/wishlist">Wishlist</a></li>
+              <li ngbDropdownItem><hr class="dropdown-divider" /></li>
+              <li ngbDropdownItem>
+                  <button class="dropdown-item" (click)="loginService.logOut()">Log Out</button>
               </li>
           </ul>
 
       </div>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <li class="nav-item" >{{loginService.currentUser()?.username}}</li>
       </ul>
-      <a class="navbar-brand-2 user-icon-big-screen" [routerLink]="['/login']"><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
+      <a *ngIf="!loginService.isLogged()" class="navbar-brand-2 user-icon-big-screen" [routerLink]="['/login']"><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
   </div>
 </nav>

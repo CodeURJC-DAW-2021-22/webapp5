@@ -74,7 +74,7 @@ public class RestAdminController {
                 else
                     password = oldUser.getPassword();
                 ShopUser newUser = new ShopUser(username, email, name, lastName, password, address, mobileNumber, birthdate, role);
-                userService.updateAdminInfo(oldUser, newUser);
+                userService.updateAdminInfo(oldUser, newUser,true);
                 return oldUser;
             }
             

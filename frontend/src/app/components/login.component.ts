@@ -1,5 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { User } from '../models/user.model';
 import { LoginService } from '../services/login.service';
+import { UserService } from '../services/user.service';
 
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
@@ -10,7 +12,10 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 
 export class LoginComponent {
-  constructor(public loginService: LoginService) { }
+
+  constructor(public loginService: LoginService, public userService: UserService) {
+
+  }
 
   logIn(event: any, user: string, pass: string) {
 
@@ -22,4 +27,27 @@ export class LoginComponent {
   logOut() {
     this.loginService.logOut();
   }
+
+  register(username: string, email: string, mobileNumber:string, password: string, confpassword: string){
+      if(password.match(confpassword)){
+        let data = { id: "",
+                  username: username,
+                  password: password,
+                  email: email,
+                  name: "",
+                  lastName: "",
+                  address: "",
+                  mobileNumber:mobileNumber,
+                  birthdate: "",
+                  role: "USER"};
+        this.userService.register(data).subscribe(
+          user => this.loginService.logIn(data.username,data.password),
+          error => console.error(error)
+        );
+      }else{
+        console.log("error");
+      }
+
+  }
+
 }

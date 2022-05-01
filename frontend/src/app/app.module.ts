@@ -1,5 +1,8 @@
 import { OutOfStockComponent } from './components/cart/out-of-stock.component';
 import { SuccessfulPaymentComponent } from './components/cart/successful-payment.component';
+import { ManageUsersComponent } from './components/manageUsers.component';
+import { UserProfileComponent } from './components/userProfile.component';
+import { AdminHomeComponent } from './components/adminHome.component';
 import { LoginComponent } from './components/login.component';
 import { FooterComponent } from './components/footer.component';
 import { HeaderComponent } from './components/header.component';
@@ -22,7 +25,7 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent, AdminHeaderComponent, FooterComponent, IndexComponent, LoginComponent, AboutComponent, CartComponent, SuccessfulPaymentComponent, OutOfStockComponent, WishlistComponent, PurchaseHistoryComponent
+    AppComponent, HeaderComponent, AdminHeaderComponent, FooterComponent, IndexComponent, LoginComponent, AboutComponent, CartComponent, SuccessfulPaymentComponent, OutOfStockComponent, WishlistComponent, PurchaseHistoryComponent, AdminHomeComponent, UserProfileComponent, ManageUsersComponent
   ],
   imports: [
     BrowserModule,
