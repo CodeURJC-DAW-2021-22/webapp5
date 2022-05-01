@@ -72,11 +72,15 @@ public class RestUserController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ShopUser> updateAdmin(@RequestBody ShopUser u, @PathVariable Long id) {
-		u.setPassword(passwordEncoder.encode(u.getPassword()));
+		boolean pass= false;
+		if(!u.getPassword().equals("")){
+			u.setPassword(passwordEncoder.encode(u.getPassword()));
+			pass= true;
+		}
 		Optional<ShopUser> oldUser = userService.findById(id);
 		
 		if(oldUser.isPresent()) {
-			userService.updateAdminInfo(oldUser.get(), u);
+			userService.updateAdminInfo(oldUser.get(), u, pass);
 			return ResponseEntity.ok(oldUser.get());
 		}
 		return ResponseEntity.notFound().build();

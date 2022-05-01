@@ -40,8 +40,8 @@
           <div class="nav-link dropdown-toggle" id="sessionDropdown" role="button" data-bs-toggle="dropdown"
              aria-expanded="false" ngbDropdownToggle><img src="../assets/static/assets/user-icon.png" class="user-icon" style = "width: 3vw"></div>
           <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li ngbDropdownItem><a class="dropdown-item" href="/userProfile">Profile</a></li>
-              <li ngbDropdownItem *ngIf="loginService.isAdmin()"><a class="dropdown-item" href="/admin/home">Admin Panel</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" [routerLink]="['/userProfile']">Profile</a></li>
+              <li ngbDropdownItem *ngIf="loginService.isAdmin()"><a class="dropdown-item" [routerLink]="['/admin/home']">Admin Panel</a></li>
               <li ngbDropdownItem><a class="dropdown-item" href="/wishlist">Wishlist</a></li>
               <li ngbDropdownItem><hr class="dropdown-divider" /></li>
               <li ngbDropdownItem>

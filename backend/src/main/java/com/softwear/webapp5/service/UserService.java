@@ -70,11 +70,13 @@ public class UserService {
 		
 	}
 
-	public void updateAdminInfo(ShopUser oldShopUser, ShopUser u) {
+	public void updateAdminInfo(ShopUser oldShopUser, ShopUser u, boolean pass) {
 
 		oldShopUser.setUsername(u.getUsername());
 		oldShopUser.setAddress(u.getAddress());
-		oldShopUser.setPassword(u.getPassword());
+		if(pass){
+			oldShopUser.setPassword(u.getPassword());
+		}
 		oldShopUser.setBirthdate(u.getBirthdate());
 		oldShopUser.setEmail(u.getEmail());
 		oldShopUser.setLastName(u.getLastName());

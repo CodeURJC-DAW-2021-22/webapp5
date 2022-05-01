@@ -55,13 +55,7 @@ export class LoginService {
 
     }
 
-    register(data: { id?: string; username: string; password: any; email: string; name?: string; lastName?: string; address?: string; mobileNumber?: string; birthdate?: string; role: string }){
-      this.http.post("api/users/", data)
-            .subscribe(
-                (response) => this.logIn(data.username, data.password),
-                (error) => alert("Wrong credentials")
-            );
-    }
+
 
     isLogged() {
         return this.logged;

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/services/login.service';
 import { FormsModule } from '@angular/forms';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
@@ -19,22 +21,15 @@ export class UserProfileComponent{
   newPass: string;
   newConfPass: string;
 
-  constructor(private httpClient: HttpClient, public loginService: LoginService) {
+
+  constructor(private httpClient: HttpClient, public loginService: LoginService, public userService: UserService, public router: Router) {
     this.oldPass="";
     this.newPass="";
     this.newConfPass="";
-    this.httpClient.get('/api/users/me', { withCredentials: true }).subscribe(
-      response => {
-          this.user = response as User;
-      },
-      error => {
-
-          if (error.status != 404) {
-              console.error('Error when asking if logged: ' + JSON.stringify(error));
-          }
-
-      }
-  );
+    this.userService.getUserLogged().subscribe(
+      user => this.user= user,
+      error => console.log("error")//this.router.navigate(['/login'])
+    );
    }
 
   updateInfo(){
@@ -48,11 +43,14 @@ export class UserProfileComponent{
                 address: this.user.address,
                 mobileNumber: this.user.mobileNumber,
                 birthdate: this.user.birthdate,
-                role: ""};
-    this.httpClient.put("/api/users/userInfo", data).subscribe(
-    response => console.log(response),
-    error => console.error(error)
+                role: ""
+    };
+
+    this.userService.updateUser(data).subscribe(
+      user => console.log(user),
+      error => console.error(error)
     );
+
   }
 
   updatePass(){
@@ -60,12 +58,13 @@ export class UserProfileComponent{
       oldPass: this.oldPass,
       newPass: this.newPass,
       newConfPass: this.newConfPass
-
     };
-    this.httpClient.put("/api/users/password", data).subscribe(
-      response => console.log(response),
+
+    this.userService.updatePass(data).subscribe(
+      user => console.log(user),
       error => console.error(error)
-      );
+    );
+
   }
 
   openFormChangePassword(){
