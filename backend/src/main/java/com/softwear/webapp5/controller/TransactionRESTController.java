@@ -121,22 +121,6 @@ public class TransactionRESTController {
         }
         return new TransactionView();
     }
-    
-    @GetMapping("api/userHistory")
-    public ResponseEntity<List<Transaction>> purchaseHistory(HttpServletRequest request, @RequestParam(required=false) Integer page){
-    	if(page!=null) {
-	    	if(page>0) {
-	    		Optional<ShopUser> oldUser = userService.findByUsername(request.getUserPrincipal().getName());
-	            List<Transaction> transactions = new ArrayList<>();
-	            for(Transaction transaction: transactionService.findPurchaseHistory(oldUser.get(), PageRequest.of(page-1, 10))) {
-	                transactions.add(transaction);
-	            }
-	            return ResponseEntity.ok(transactions);
-	    	}
-    	}
-		return ResponseEntity.ok(transactionService.findAll());
-    	
-    }
    
 
 }

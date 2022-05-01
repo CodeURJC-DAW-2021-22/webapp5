@@ -1,6 +1,7 @@
 package com.softwear.webapp5.controller;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.softwear.webapp5.data.PassChange;
 import com.softwear.webapp5.data.ShopUserView;
 import com.softwear.webapp5.model.ShopUser;
+import com.softwear.webapp5.security.jwt.UserLoginService;
 import com.softwear.webapp5.service.UserService;
 
 @RestController
@@ -38,8 +40,22 @@ public class RestUserController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserLoginService userLogService;
 	
-	
+	@GetMapping("/me")
+	public ResponseEntity<ShopUser> me(HttpServletRequest request) {
+		
+		Principal principal = request.getUserPrincipal();
+
+		if(principal != null) {
+			return ResponseEntity.ok(userService.findByUsername(principal.getName()).orElseThrow());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
 	@GetMapping("/")
 	public ResponseEntity<List<ShopUser>> get(@RequestParam(required=false) Integer page) {
 		if(page!=null) {

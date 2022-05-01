@@ -30,7 +30,7 @@ public class TransactionService {
 
     public static String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
-        return String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)) + "/" + String.format("%02d", calendar.get(Calendar.MONTH)) + "/" + Integer.toString(calendar.get(Calendar.YEAR));
+        return String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)) + "/" + String.format("%02d", calendar.get(Calendar.MONTH) + 1) + "/" + Integer.toString(calendar.get(Calendar.YEAR));
     }
 
     public Optional<Transaction> findById(Long id) {
@@ -181,24 +181,27 @@ public class TransactionService {
         if (optCart.isPresent()) {
             transactionRepository.delete(optCart.get());
         }
+        //transactionRepository.save(new Transaction("CART", user, null, getCurrentDate(), new ArrayList<>()));
     }
 
     public boolean addToWishlist(Long productId, ShopUser user) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (optionalProduct.isPresent()){
             Product product = optionalProduct.get();
-            Optional<Transaction> optionalTransaction = transactionRepository.findWishlist(user);
-            Transaction wishlist;
-            if (optionalTransaction.isPresent()) {
-                wishlist = optionalTransaction.get();
-            } else {
-                wishlist = new Transaction("WISHLIST", user, null, getCurrentDate(), new ArrayList<>());
+            if(transactionRepository.findProductInWishlist(user, product.getName()).isEmpty()) {
+                Optional<Transaction> optionalTransaction = transactionRepository.findWishlist(user);
+                Transaction wishlist;
+                if (optionalTransaction.isPresent()) {
+                    wishlist = optionalTransaction.get();
+                } else {
+                    wishlist = new Transaction("WISHLIST", user, null, getCurrentDate(), new ArrayList<>());
+                }
+                if (!wishlist.getProducts().contains(product)) {
+                    wishlist.getProducts().add(product);
+                    updateAndSave(wishlist);
+                }
+                return true;
             }
-            if (!wishlist.getProducts().contains(product)) {
-                wishlist.getProducts().add(product);
-                updateAndSave(wishlist);
-            }
-            return true;
         }
         return false;
     }

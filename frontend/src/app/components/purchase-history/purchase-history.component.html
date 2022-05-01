@@ -1,0 +1,38 @@
+<div id="purchases-container" class="container" xmlns="http://www.w3.org/1999/html">
+  <nav class="nav nav-borders" style="margin-top: 3vh;">
+      <a class="nav-link ms-0" href="/userProfile">Profile</a>
+      <a class="nav-link active ms-0" href="/purchaseHistory">Orders</a>
+  </nav>
+  <hr class="mt-0 mb-4">
+  <div *ngFor="let transaction of transactions" class="card mb-4 shadow-sm purchase-box">
+      <div class="card-header">
+          <h3 class="softFont">Order ID: {{transaction.id}}</h3>
+          <h5 class="softFont">Date: {{ transaction.date }}</h5>
+          <h4 class="softFont">Status: {{transaction.type}}</h4>
+      </div>
+      <div class="card-body">
+          <table class="table">
+              <tbody id="purchase-{{transaction.id}}" class="cart">
+              <tr *ngFor="let entry of transaction.entries; let entry_index = index">
+                  <td>#{{entry_index + 1}}</td>
+                  <td style="padding: 0;">
+                      <a class="btn border-0" [routerLink]="['/productView', entry.id]">{{entry.product.name}} ({{entry.product.size}})</a>
+                  </td>
+                  <td>{{entry.quantity}} x ${{entry.product.price}}</td>
+                  <td class="text-right">${{entry.totalPrice}}</td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td class="text-right">Total: </td>
+                  <td class="text-right"><strong class="total">${{transaction.totalPrice | number: "1.2"}}</strong></td>
+              </tr>
+              </tfoot>
+
+          </table>
+      </div>
+  </div>
+  <div *ngIf="this.currentPage < this.maxPages" class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" (click)="more()">More</a></div>
+</div>

@@ -31,7 +31,7 @@ public class Transaction {
 	@Column(nullable = false)
     private String type;
 
-	@ManyToOne(optional = false,cascade=CascadeType.REMOVE,  fetch=FetchType.EAGER)
+	@ManyToOne(optional = false,  fetch=FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
     private ShopUser user;
 

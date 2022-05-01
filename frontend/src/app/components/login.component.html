@@ -12,18 +12,18 @@
                           <div class="row">
                               <form id="form-login" action="/login" method="post">
                                   <div class="form-floating mb-3">
-                                      <input type="text" class="form-control" id="floatingUsername"
+                                      <input #user type="text" class="form-control" id="floatingUsername"
                                              placeholder="Username" name="usernameLogin" required>
                                       <label for="floatingUsername">Username</label>
                                   </div>
                                   <div class="form-floating mb-3">
-                                      <input type="password" class="form-control" id="floatingPassword"
+                                      <input #pass type="password" class="form-control" id="floatingPassword"
                                              placeholder="Password" name="passwordLogin" required>
                                       <label for="floatingPassword">Password</label>
                                   </div>
                                   <div class="d-grid">
                                       <button class="btn btn-outline-dark btn-login text-uppercase fw-bold"
-                                              type="submit" onclick="signIn()">Sign in
+                                              type="submit" (click)="logIn($event, user.value, pass.value)">Sign in
                                       </button>
                                   </div>
                               </form>
