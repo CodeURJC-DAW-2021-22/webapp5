@@ -16,7 +16,7 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 export class UserProfileComponent{
 
 
-  user!: User;
+  user: User;
   oldPass: string;
   newPass: string;
   newConfPass: string;
@@ -26,6 +26,16 @@ export class UserProfileComponent{
     this.oldPass="";
     this.newPass="";
     this.newConfPass="";
+    this.user = {
+      username: "",
+      email: "",
+      name: "",
+      lastName: "",
+      address: "",
+      phoneNumber: 0,
+      birthDate: "",
+      role: "USER"
+    }
     this.userService.getUserLogged().subscribe(
       user => this.user= user,
       error => console.log("error")//this.router.navigate(['/login'])

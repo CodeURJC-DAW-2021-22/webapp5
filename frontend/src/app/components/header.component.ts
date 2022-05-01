@@ -1,4 +1,3 @@
-import { CartEventService } from './../services/cart-event.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
@@ -15,11 +14,8 @@ export class HeaderComponent {
 
   $nCartItems: Observable<number>;
 
-  constructor(private http: HttpClient, public loginService: LoginService, private eventService: CartEventService) {
+  constructor(private http: HttpClient, public loginService: LoginService) {
     this.$nCartItems = this.updateCartNumber();
-    this.eventService.cartBus$.subscribe({
-      next: _ => this.$nCartItems = this.updateCartNumber()
-    })
   }
 
   updateCartNumber(): Observable<number> {

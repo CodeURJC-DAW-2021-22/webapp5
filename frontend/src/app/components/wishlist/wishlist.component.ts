@@ -1,5 +1,6 @@
+import { HeaderComponent } from './../header.component';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { Transaction } from 'src/app/models/transaction.model';
@@ -17,6 +18,8 @@ interface ProductEntry {
 export class WishlistComponent {
 
   entries: ProductEntry[] = new Array<ProductEntry>();
+
+  @ViewChild(HeaderComponent) header!: HeaderComponent;
 
   constructor(private router: Router, private service: TransactionsService, private httpClient: HttpClient) {
     //this.loginService.reqIsLogged();
@@ -70,6 +73,7 @@ export class WishlistComponent {
   addToCart(index: number) {
     let entry: ProductEntry = this.entries[index];
     this.service.addProductToCart(entry.id, 1).subscribe({
+      complete: () => this.header.updateCartNumber(),
       error: error => console.error(error)
     });
   }

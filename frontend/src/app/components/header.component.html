@@ -44,7 +44,7 @@
           <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li ngbDropdownItem><a class="dropdown-item" [routerLink]="['/userProfile']">Profile</a></li>
               <li ngbDropdownItem *ngIf="loginService.isAdmin()"><a class="dropdown-item" [routerLink]="['/admin/home']">Admin Panel</a></li>
-              <li ngbDropdownItem><a class="dropdown-item" href="/wishlist">Wishlist</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" [routerLink]="['/wishlist']">Wishlist</a></li>
               <li ngbDropdownItem><hr class="dropdown-divider" /></li>
               <li ngbDropdownItem>
                   <button class="dropdown-item" (click)="loginService.logOut()">Log Out</button>

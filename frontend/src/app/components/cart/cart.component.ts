@@ -1,10 +1,10 @@
-import { CartEventService } from './../../services/cart-event.service';
 import { TransactionsService } from './../../services/transactions.service';
 import { Product } from './../../models/product.model';
 import { HttpClient } from '@angular/common/http';
-import { Component, Output } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Transaction } from 'src/app/models/transaction.model';
+import { HeaderComponent } from '../header.component';
 
 export interface ProductEntry {
   id: number,
@@ -20,6 +20,8 @@ export interface ProductEntry {
 export class CartComponent {
 
   entries: ProductEntry[] = new Array<ProductEntry>();
+
+  @ViewChild(HeaderComponent) header!: HeaderComponent;
 
   public static extractProductEntries(cart: Transaction): ProductEntry[] {
     let entries: ProductEntry[] = new Array<ProductEntry>();
@@ -54,11 +56,14 @@ export class CartComponent {
     };
   }
 
-  constructor(private router: Router, private service: TransactionsService, private eventService: CartEventService, private httpClient: HttpClient) {
+  constructor(private router: Router, private service: TransactionsService, private httpClient: HttpClient) {
     //this.loginService.reqIsLogged();
     this.httpClient.get("/api/users/me", {withCredentials: true}).subscribe({
       complete: () => this.service.getCart().subscribe({
-        next: cart => this.entries = CartComponent.extractProductEntries(cart),
+        next: cart => {
+          this.header.updateCartNumber();
+          this.entries = CartComponent.extractProductEntries(cart);
+        },
         error: error => console.error(error)
       }),
       error: _ => this.router.navigate(['/login'])
@@ -69,7 +74,7 @@ export class CartComponent {
     this.service.emptyCart().subscribe({
       complete: () => {
         this.entries = new Array<ProductEntry>();
-        this.eventService.emitCartEvent("update");
+        this.header.updateCartNumber();
       },
       error: error => console.error(error)
     });
@@ -81,7 +86,7 @@ export class CartComponent {
       complete: () => {
         entry.quantity += 1;
         entry.totalPrice = entry.quantity * entry.product.price;
-        this.eventService.emitCartEvent("update");
+        this.header.updateCartNumber();
       },
       error: error => console.error(error)
     });
@@ -96,7 +101,7 @@ export class CartComponent {
         complete: () => {
           entry.quantity -= 1;
           entry.totalPrice = entry.quantity * entry.product.price;
-          this.eventService.emitCartEvent("update");
+          this.header.updateCartNumber();
         },
         error: error => console.error(error)
       });
@@ -108,7 +113,7 @@ export class CartComponent {
     this.service.deleteAllProductFromCart(entry.id).subscribe({
       complete: () => {
         this.entries.splice(index, 1);
-        this.eventService.emitCartEvent("update");
+        this.header.updateCartNumber();
       },
       error: error => console.error(error)
     });
@@ -129,7 +134,7 @@ export class CartComponent {
   purchaseCart() {
     this.service.getCart().subscribe({
       next: cart => this.purchase(cart),
-      complete: () => this.eventService.emitCartEvent("update"),
+      complete: () => this.header.updateCartNumber(),
       error: error => console.error(error)
     })
   }
@@ -138,7 +143,7 @@ export class CartComponent {
     if(this.checkCart(cart)) {
       this.service.purchaseCart(cart).subscribe({
         complete: () => {
-          this.eventService.emitCartEvent("update");
+          this.header.updateCartNumber();
           this.router.navigate(['/successfulPayment'])
         },
         error: error => console.error(error)

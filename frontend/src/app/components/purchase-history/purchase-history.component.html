@@ -1,7 +1,8 @@
+<headerUser></headerUser>
 <div id="purchases-container" class="container" xmlns="http://www.w3.org/1999/html">
   <nav class="nav nav-borders" style="margin-top: 3vh;">
-      <a class="nav-link ms-0" href="/userProfile">Profile</a>
-      <a class="nav-link active ms-0" href="/purchaseHistory">Orders</a>
+      <a class="nav-link ms-0" [routerLink]="['/userProfile']">Profile</a>
+      <a class="nav-link active ms-0" [routerLink]="['/purchaseHistory']">Orders</a>
   </nav>
   <hr class="mt-0 mb-4">
   <div *ngFor="let transaction of transactions" class="card mb-4 shadow-sm purchase-box">
