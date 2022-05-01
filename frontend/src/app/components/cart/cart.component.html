@@ -14,7 +14,7 @@
             <tr *ngFor="let entry of entries; let entry_index = index" id="product_{{entry.id}}" class="product-row">
               <td class="cart-text product-index">#{{entry_index + 1}}</td>
               <td>
-                  <a href="/productView/{{entry.id}}" class="btn border-0">{{entry.product.name}} ({{entry.product.size}})</a>
+                  <a [routerLink]="['/productView', entry.id]" class="btn border-0">{{entry.product.name}} ({{entry.product.size}})</a>
               </td>
               <td class="cart-text product-unit-price">${{entry.product.price}}</td>
               <td class="text-center" style="width: 60px;">
