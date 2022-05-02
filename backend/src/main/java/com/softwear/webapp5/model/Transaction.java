@@ -45,8 +45,7 @@ public class Transaction {
 	@Column(nullable = false)
 	private Double totalPrice;
 
-	@ManyToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Column(nullable = false)
     private List<Product> products;

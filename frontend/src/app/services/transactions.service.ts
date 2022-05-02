@@ -89,7 +89,7 @@ export class TransactionsService {
     return this.httpClient.get(BASE_WISHLIST_URL + '/products/' + id, {withCredentials: true}).pipe(
       map(product => product as Product),
       catchError(error => this.handleError(error))
-    )
+    ) as Observable<Product>;
   }
 
   addProductToWishlist(id: number | string) {

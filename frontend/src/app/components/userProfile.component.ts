@@ -36,10 +36,10 @@ export class UserProfileComponent{
       birthDate: "",
       role: "USER"
     }
-    this.userService.getUserLogged().subscribe(
-      user => this.user= user,
-      error => this.router.navigate(['/login'])
-    );
+    this.userService.getUserLogged().subscribe({
+      next: user => this.user= user,
+      error: error => this.router.navigate(['/login'])
+    });
    }
 
   updateInfo(){
