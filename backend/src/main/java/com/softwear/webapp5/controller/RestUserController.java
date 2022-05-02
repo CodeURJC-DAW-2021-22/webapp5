@@ -74,6 +74,11 @@ public class RestUserController {
 		}
 		return ResponseEntity.ok(listUser);
 	}
+
+	@GetMapping("/maxPages")
+	public ResponseEntity<Integer> getMaxPages(){
+		return ResponseEntity.ok(userService.findAll(PageRequest.of(0, 1)).getTotalPages());
+	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ShopUserView> updateAdmin(@RequestBody ShopUser u, @PathVariable Long id) {

@@ -38,7 +38,7 @@ export class UserProfileComponent{
     }
     this.userService.getUserLogged().subscribe(
       user => this.user= user,
-      error => console.log("error")//this.router.navigate(['/login'])
+      error => this.router.navigate(['/login'])
     );
    }
 
@@ -57,7 +57,7 @@ export class UserProfileComponent{
     };
 
     this.userService.updateUser(data).subscribe(
-      user => console.log(user),
+      user => {},
       error => console.error(error)
     );
 
@@ -71,7 +71,7 @@ export class UserProfileComponent{
     };
 
     this.userService.updatePass(data).subscribe(
-      user => console.log(user),
+      user => {},
       error => console.error(error)
     );
 

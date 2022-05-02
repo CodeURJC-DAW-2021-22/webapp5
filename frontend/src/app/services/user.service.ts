@@ -14,7 +14,13 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
-  getUsers(): Observable<User[]> {
+  getUsersPageable(page: number): Observable<User[]> {
+    return this.httpClient.get(BASE_URL+"?page="+page).pipe(
+      map(response => response as User[])
+    )
+  }
+
+  getUsers(): Observable<User[]>{
     return this.httpClient.get(BASE_URL).pipe(
       map(response => response as User[])
     )
@@ -27,7 +33,7 @@ export class UserService {
   }
 
   updateUser(data: { id: string; username: string; password?: any; email: string; name: string; lastName: string; address: string; phoneNumber: number; birthDate: string; role: string }): Observable<User>{
-    console.log(data.phoneNumber);
+
     return this.httpClient.put(BASE_URL+"userInfo", data).pipe(
       map(response => response as User)
     )
@@ -46,6 +52,7 @@ export class UserService {
   }
 
   addUser(data: { id: number; username: string; password?: any; email: string; name: string; lastName: string; address: string; phoneNumber: number; birthDate: string; role: string }): Observable<User>{
+
     return this.httpClient.post(BASE_URL, data).pipe(
       map(response => response as User)
     )

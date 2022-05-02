@@ -43,10 +43,8 @@
      <!--<meta id="max-pages" content="{{maxPages}}"/>-->
 
       <div class="row justify-content-start">
-       <!-- {{#hasNext}}
-      <div class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" onclick="more()">More</a></div>
-      {{/hasNext}}-->
-          <button class="btn btn-primary" id="button-add-user" type="button" (click)="addUserLoad()" style=" margin: 3px">Add User</button>
+        <div *ngIf="this.currentPage < this.maxPages" class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" (click)="more()">More</a></div>
+        <button class="btn btn-primary" id="button-add-user" type="button" (click)="addUserLoad()" style=" margin: 3px">Add User</button>
       </div>
 
       <!-- modal add / edit user data-->

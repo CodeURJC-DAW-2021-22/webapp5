@@ -28,28 +28,52 @@ export class ManageUsersComponent{
   role!: string;
   event: string;
 
-
+  currentPage: number=1;
+  maxPages: number=1;
 
   constructor(private httpClient: HttpClient, public loginService: LoginService, public userService: UserService, public router: Router) {
 
     this.event="";
 
     this.userService.getUserLogged().subscribe(
-      user => console.log(""),
+      user => {},
       error => console.error(error)
     );
 
-    this.userService.getUsers().subscribe(
+    this.httpClient.get("/api/users/maxPages", {withCredentials: true}).subscribe({
+      next: maxPages => this.maxPages = maxPages as number,
+      error: error => console.error(error)
+    });
+
+    this.userService.getUsersPageable(this.currentPage).subscribe(
       users => this.users = users,
       error => console.error(error)
     );
 
    }
 
+  more() {
+    if(this.currentPage < this.maxPages) {
+      this.loadUsers(++this.currentPage);
+    }
+  }
+
+  private loadUsers(page: number) {
+    this.userService.getUsersPageable(page).subscribe({
+      next: history => {
+        for(let u of history)
+          this.users.push(u);
+      },
+      error: error => console.error(error)
+    });
+  }
+
 
    deleteUser(id?: number){
     this.userService.deleteUser(id!).subscribe(
-      user => console.log(user),
+      user => {
+        this.users.forEach((element,index)=>{if(element.id==id!){ this.users.splice(index,1);}});
+      },
       error => console.error(error)
     );
    }
@@ -113,13 +137,13 @@ export class ManageUsersComponent{
       if(this.event.match("update")){
 
         this.userService.updateUserAdmin(data).subscribe(
-          user => console.log(user),
+          user => {this.users[this.id-1] = user, this.close()},
           error => console.error(error)
         );
 
       }else{
         this.userService.addUser(data).subscribe(
-          user => console.log(user),
+          user => {this.users.push(user), this.close()},
           error => console.error(error)
         );
       }
