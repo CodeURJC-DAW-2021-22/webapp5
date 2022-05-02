@@ -17,8 +17,8 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 export class ProductViewComponent{
     @ViewChild(HeaderComponent) header!: HeaderComponent;
-    id: number;
-    user: User;
+    id!: number;
+    user!: User;
     isLogged: boolean = false;
     inWishlist: boolean = false;
     inCart: boolean = true;
@@ -26,7 +26,7 @@ export class ProductViewComponent{
     availableProducts: Product[] = [];
     quantity: number = 1;
 
-    product: Product;
+    product!: Product;
     sizeEnum: Product["size"][];
     availableSizes: Product["size"][] = [];
     availableStock: Product["stock"][] = [];
