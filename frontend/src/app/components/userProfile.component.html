@@ -1,0 +1,106 @@
+<headerUser></headerUser>
+
+<div class="container-xl px-4 mt-4">
+  <!-- Account page navigation-->
+  <nav class="nav nav-borders">
+      <a class="nav-link active ms-0" [routerLink]="['/userProfile']">Profile</a>
+  <a class="nav-link ms-0" [routerLink]="['/purchaseHistory']">Orders</a>
+  </nav>
+  <hr class="mt-0 mb-4">
+  <div class="row">
+      <div class="col-xl-4">
+          <!-- Profile picture card-->
+          <div class="card mb-4 mb-xl-0">
+              <div class="card-header">Profile Picture</div>
+              <div class="card-body text-center">
+                  <!-- Profile picture image-->
+                  <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                  <!-- Profile picture help block-->
+                  <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                  <!-- Profile picture upload button-->
+                  <button class="btn btn-outline-dark" type="button">Upload Image</button>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-8">
+          <!-- Account details card-->
+          <div class="card mb-4" >
+              <div class="card-header">Account Details</div>
+              <div class="card-body" id="formBox">
+                  <form action="/userProfile" method="post">
+
+                      <!-- {{#fromCart}}<input type="hidden" name="fromCart" value="true">{{/fromCart}}-->
+                      <!-- Form Row-->
+                      <div class="row gx-3 mb-3">
+                          <!-- Form Group (first name)-->
+                          <div class="col-md-6">
+                              <label class="small mb-1" for="inputFirstName">First name</label>
+                              <input class="form-control" name="name" type="text" placeholder="Enter your first name" [(ngModel)]="user.name"  id="inputFirstName"> <!--{{#fromCart}}required{{/fromCart}}>-->
+                          </div>
+                          <!-- Form Group (last name)-->
+                          <div class="col-md-6">
+                              <label class="small mb-1" for="inputLastName">Last name</label>
+                              <input class="form-control" name="lastName" type="text" placeholder="Enter your last name" [(ngModel)]="user.lastName"  id="inputLastName"> <!--{{#fromCart}}required{{/fromCart}}>-->
+                          </div>
+                      </div>
+                      <!-- Form Row        -->
+                      <div class="row gx-3 mb-3">
+
+                          <!-- Form Group (Address)-->
+                          <div class="col-md-6">
+                              <label class="small mb-1" for="inputAddress">Address</label>
+                              <input class="form-control" name="address" type="text" placeholder="Enter your address" [(ngModel)]="user.address"  id="inputAddress"> <!--{{#fromCart}}required{{/fromCart}}>-->
+                          </div>
+                      </div>
+                      <!-- Form Group (email address)-->
+                      <div class="mb-3">
+                          <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                          <input class="form-control" name="email" type="email" placeholder="Enter your email address" [(ngModel)]="user.email" id="inputEmailAddress"> <!--{{#fromCart}}required{{/fromCart}}>-->
+                      </div>
+                      <!-- Form Row-->
+                      <div class="row gx-3 mb-3">
+                          <!-- Form Group (phone number)-->
+                          <div class="col-md-6">
+                              <label class="small mb-1" for="inputPhone">Phone number</label>
+                              <input class="form-control" name="mobileNumber" type="text" placeholder="Enter your phone number" [(ngModel)]="user.phoneNumber" id="inputPhone">
+                          </div>
+                          <!-- Form Group (birthday)-->
+                          <div class="col-md-6">
+                              <label class="small mb-1" for="inputBirthdate">Birthdate</label>
+                              <input class="form-control" name="birthdate" type="text" placeholder="Enter your birthdate" [(ngModel)]="user.birthDate" id="inputBirthdate">
+                          </div>
+                      </div>
+                      <!-- Save changes button-->
+                      <button class="btn btn-outline-dark" type="button" (click)="updateInfo()">Save Changes</button>
+
+                      <button class="btn btn-outline-dark" type="button" (click)="openFormChangePassword()">Change Password</button>
+
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+  <div class="form-popup" id="change-password-form">
+       <form  class="form-container" action="/userProfile/changePassword" method="post">
+           <h2 style="margin-bottom: 8vh; margin-top: 2vh;">Change Password</h2>
+
+           <div class="form-floating mb-3">
+               <input type="password" class="form-control" name="oldPass" placeholder="Old Password"  [(ngModel)]="oldPass" id="floatingPasswordOld" required>
+               <label for="floatingPasswordOld">Previous Password</label>
+           </div>
+           <div class="form-floating mb-3">
+               <input type="password" class="form-control" name="newPass" placeholder="New Password"  [(ngModel)]="newPass"  id="floatingPasswordNew" required>
+               <label for="floatingPasswordNew">New Password</label>
+           </div>
+           <div class="form-floating mb-3">
+               <input type="password" class="form-control" name="newConfPass" placeholder="New Password" [(ngModel)]="newConfPass" id="floatingPasswordNewRepeat" required>
+               <label for="floatingPasswordNewRepeat">Repeat New Password</label>
+           </div>
+           <div class="container" id="changePassword-btn-container">
+                   <div class="row"><button type="button" class="btn btn-outline-dark text-uppercase fw-bold" id="confirm-changePassword" (click)="updatePass()">Change Password</button></div>
+                   <div class="row"><button type="button" class="btn btn-outline-dark text-uppercase fw-bold" id="cancel-changePassword" (click)="closeFormChangePassword()">Cancel</button></div>
+           </div>
+       </form>
+   </div>

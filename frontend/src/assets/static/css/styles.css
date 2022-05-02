@@ -130,7 +130,7 @@ details summary::-webkit-details-marker {
 }
 
 footer{
-  margin-top:auto; 
+  margin-top:auto;
 }
 
 body {
@@ -4609,8 +4609,8 @@ textarea.form-control-lg {
   border:2px solid rgba(0, 0, 0, 0.175);
 }
 .product-actions{
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   justify-content: space-around;
 }
 .navbar-brand-2:hover{
@@ -4988,7 +4988,7 @@ textarea.form-control-lg {
   border-bottom-right-radius: 0.2rem;
 }
 .favIcon{
-  top: 0.5rem; 
+  top: 0.5rem;
   right: 0.5rem;
 }
 .favIcon:hover{
@@ -10040,7 +10040,7 @@ textarea.form-control-lg {
 }
 @media (min-width: 1200px) {
   .purchase-box{
-    margin: 0.5rem 5rem !important; 
+    margin: 0.5rem 5rem !important;
   }
   .float-xl-start {
     float: left !important;
@@ -11400,7 +11400,7 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
-  
+
 }
 
 
@@ -11469,7 +11469,7 @@ textarea.form-control-lg {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.03);
 }
- 
+
 #product-slider::-webkit-scrollbar-thumb {
   background-color: black;
   outline: 1px solid slategrey;
@@ -11662,8 +11662,8 @@ textarea.form-control-lg {
  }
 
 .purchase-box{
-  border: 1px solid rgba(114, 114, 114, 0.26); 
-  margin: 0.5rem 20px; 
+  border: 1px solid rgba(114, 114, 114, 0.26);
+  margin: 0.5rem 20px;
   border-radius: 5px;
 }
 .purchase-box td{
@@ -11726,7 +11726,7 @@ color:#69707a;
 }
 
 #change-password-form .form-container {
-  
+
   padding: 10px;
   background: white;
 }
@@ -11764,8 +11764,8 @@ color:#69707a;
 }
 
 .pick-size{
-  display: flex; 
-  flex-direction: row; 
+  display: flex;
+  flex-direction: row;
   gap: 0.3rem;
   margin: 0.5rem 0;
 }
@@ -11775,7 +11775,7 @@ color:#69707a;
 }
 
 .logoutText{
-  text-decoration-line: none; 
+  text-decoration-line: none;
   color: black;
 }
 
@@ -11835,3 +11835,28 @@ color:#69707a;
   color: #000;
   font-size: 20px;
 }
+
+#modalAddEditUserData.form-popup {
+  display: none;
+  position: fixed;
+  top: 10vh;
+  left: 25vw;
+  box-shadow: 2px 2px 15px var(--bs-gray-600);
+  z-index: 9;
+}
+
+#modalAddEditUserData.form-container {
+
+  padding: 10px;
+  background: white;
+}
+
+@media (min-width: 1200px){
+  #modalAddEditUserData.form-popup {
+     left: 37.5vw !important;
+   }
+
+   #modalAddEditUserData.form-container {
+     width: 25vw !important;
+   }
+ }

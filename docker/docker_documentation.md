@@ -102,7 +102,7 @@ env MAILER_EMAIL=<your-mailer-email> MAILER_PASS=<your-mailer-pass> docker compo
 
 ### **Heroku Deployment**
 
-In order to deploy the application with heroku, you must create a heroku account and install the heroku client.
+In order to deploy the application with heroku, you must create a heroku account and install heroku and docker clients.
 
 First, you need to log in and create a new application with the following commands:
 
@@ -133,8 +133,6 @@ Then you need to configure the database. You can add the database to your heroku
 ```bash
 heroku addons:create heroku-postgresql --app <app-id>
 ```
-
-
 
 You need to set the environment variables running the following command:
 

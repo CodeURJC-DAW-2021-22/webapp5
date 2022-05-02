@@ -49,16 +49,25 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
 		
 		// URLs that need authentication to access to it
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/users/**").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/users/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("USER", "ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN");	
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/userHistory**").hasAnyRole("USER", "ADMIN");
-
 		
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/transactions/**").hasRole("ADMIN");	
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/transactions/cart/me/size").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/transactions/cart/me**").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/transactions/wishlist/me**").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/transactions/purchaseHistory/me**").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/transactions/*").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/transactions/*/products/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/transactions/**").hasAnyRole("USER", "ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/transactions/**").hasAnyRole("USER", "ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/transactions/**").hasRole("ADMIN");	
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/transactions/cart/me**").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/transactions/*").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/transactions/*/products/**").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/transactions/cart/me**").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/transactions/wishlist/me**").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/transactions/*").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/transactions/*/products/**").hasRole("ADMIN");
 
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/coupons/**").hasRole("ADMIN");	
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/coupons/**").hasAnyRole("USER", "ADMIN");

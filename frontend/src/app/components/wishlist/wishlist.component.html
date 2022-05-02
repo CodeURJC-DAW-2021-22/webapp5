@@ -1,0 +1,26 @@
+<headerUser></headerUser>
+<div class="card mb-4 shadow-sm" style="border: 1px solid rgba(114, 114, 114, 0.26); margin: 30px; border-radius: 5px;">
+  <div class="card-header">
+      <div class="row">
+          <div class="col-11"><h2 class="softFont">Wish List</h2></div>
+          <div class="col-1">
+              <button class="btn btn-outline-dark fa-solid fa-trash" (click)="emptyWishlist()" type="button"></button>
+          </div>
+      </div>
+  </div>
+  <div class="card-body">
+      <table class="table">
+          <tbody class="cart">
+          <tr *ngFor="let entry of entries; let entry_index = index" id="product_{{entry.id}}" class="product-row">
+              <td class="cart-text product-index">#{{entry_index + 1}}</td>
+              <td>
+                  <a class="btn border-0" [routerLink]="['/productView', entry.id]">{{entry.product.name}}</a>
+              </td>
+              <td class="cart-text text-right product-price">${{entry.product.price}}</td>
+              <td><button class="btn btn-outline-dark text-uppercase fw-bold" (click)="addToCart(entry_index)" type="button">Buy</button></td>
+              <td><button class="btn btn-outline-dark text-uppercase fw-bold" (click)="deleteFromWishlist(entry_index)" type="button">Remove</button></td>
+          </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

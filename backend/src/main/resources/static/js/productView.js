@@ -85,7 +85,7 @@ function addToCart(id, quantity) {
 		},
 		dataType: "json"
 	}).done(function (cart) {
-		if(cart.id !== 0){
+		if(cart != null){
 			updateCartItemsNumber(cart);
 			labelTransition("cart-add");
 		}

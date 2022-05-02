@@ -1,6 +1,7 @@
 package com.softwear.webapp5.controller;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.softwear.webapp5.data.PassChange;
 import com.softwear.webapp5.data.ShopUserView;
 import com.softwear.webapp5.model.ShopUser;
+import com.softwear.webapp5.security.jwt.UserLoginService;
 import com.softwear.webapp5.service.UserService;
 
 @RestController
@@ -38,40 +40,68 @@ public class RestUserController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserLoginService userLogService;
 	
-	
+	@GetMapping("/me")
+	public ResponseEntity<ShopUser> me(HttpServletRequest request) {
+		
+		Principal principal = request.getUserPrincipal();
+
+		if(principal != null) {
+			return ResponseEntity.ok(userService.findByUsername(principal.getName()).orElseThrow());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
 	@GetMapping("/")
-	public ResponseEntity<List<ShopUser>> get(@RequestParam(required=false) Integer page) {
+	public ResponseEntity<List<ShopUserView>> get(@RequestParam(required=false) Integer page) {
+		List<ShopUserView> listUser= new ArrayList<>();
 		if(page!=null) {
 			if(page>0) {
-				List<ShopUser> listUser= new ArrayList<>();
+				
 		        for(ShopUser u: userService.findAll(PageRequest.of(page-1, 1))) {
-		        	listUser.add(u);
+		        	listUser.add(new ShopUserView(u));
 		        }
 		        return ResponseEntity.ok(listUser);
 			}
 		}
-		return ResponseEntity.ok(userService.findAll());
+		List<ShopUser> uss= userService.findAll();
+		for(ShopUser u : userService.findAll()){
+			listUser.add(new ShopUserView(u));
+		}
+		return ResponseEntity.ok(listUser);
+	}
+
+	@GetMapping("/maxPages")
+	public ResponseEntity<Integer> getMaxPages(){
+		return ResponseEntity.ok(userService.findAll(PageRequest.of(0, 1)).getTotalPages());
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ShopUser> updateAdmin(@RequestBody ShopUser u, @PathVariable Long id) {
-		u.setPassword(passwordEncoder.encode(u.getPassword()));
+	public ResponseEntity<ShopUserView> updateAdmin(@RequestBody ShopUser u, @PathVariable Long id) {
+		boolean pass= false;
+		if(!u.getPassword().equals("")){
+			u.setPassword(passwordEncoder.encode(u.getPassword()));
+			pass= true;
+		}
 		Optional<ShopUser> oldUser = userService.findById(id);
 		
 		if(oldUser.isPresent()) {
-			userService.updateAdminInfo(oldUser.get(), u);
-			return ResponseEntity.ok(oldUser.get());
+			userService.updateAdminInfo(oldUser.get(), u, pass);
+			return ResponseEntity.ok(new ShopUserView(oldUser.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/userInfo")
-	public ResponseEntity<ShopUser> updateUser(HttpServletRequest request, @RequestBody ShopUser u) {
+	public ResponseEntity<ShopUserView> updateUser(HttpServletRequest request, @RequestBody ShopUser u) {
 		Optional<ShopUser> oldUser = userService.findByUsername(request.getUserPrincipal().getName());
 	
 		userService.updateInfo(oldUser, u);
-		return ResponseEntity.ok(oldUser.get());
+		return ResponseEntity.ok(new ShopUserView(oldUser.get()));
 	}
 	
 	@PutMapping("/password")
@@ -88,19 +118,19 @@ public class RestUserController {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<ShopUser> create(@RequestBody ShopUser u) {
+	public ResponseEntity<ShopUserView> create(@RequestBody ShopUser u) {
 		u.setPassword(passwordEncoder.encode(u.getPassword()));
 		userService.saveUser(u);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(u.getId()).toUri();
-		return ResponseEntity.created(location).body(u);
+		return ResponseEntity.created(location).body(new ShopUserView(u));
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ShopUser> delete(@PathVariable Long id) {
+	public ResponseEntity<ShopUserView> delete(@PathVariable Long id) {
 		Optional<ShopUser> user = userService.findById(id); 
 		if(user.isPresent()) {
 			userService.delete(id);
-			return ResponseEntity.ok(user.get());
+			return ResponseEntity.ok(new ShopUserView(user.get()));
 		}
 		
 		return ResponseEntity.notFound().build();
