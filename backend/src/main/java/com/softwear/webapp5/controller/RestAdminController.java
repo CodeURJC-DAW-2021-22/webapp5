@@ -147,7 +147,7 @@ public class RestAdminController {
     }
 
     @GetMapping("/statics")
-    public List<StaticDTO> getStatics(HttpServletResponse response) {
+    public List<StaticDTO> getStatics() {
         List<StaticDTO> statics = transactionService.getStatics();
         return statics;
     }
