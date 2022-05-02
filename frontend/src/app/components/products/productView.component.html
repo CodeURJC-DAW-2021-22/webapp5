@@ -1,6 +1,8 @@
+<headerUser></headerUser>
+
 <div id="product-content-wrapper">
     <div class="product-column">
-        <img id=product-featured [src]="product.images[0]">
+        <img id=product-featured [src]="product.images[chosenImage]">
 
         <div id="product-slide-wrapper" >
             <img id="product-slideLeft" class="product-arrow" src="../assets/static/assets/arrow-left.png">
@@ -32,32 +34,46 @@
             </ng-template>
         </div>
 
-        <div *ngFor="let size of sizeEnum" class="pick-size row">
-                <ng-template *ngFor="let prod of availableProducts">
-                <!-- If size is available -->
-                    <div *ngIf="prod.size == size; else sizeNotAvailable" id="btn-size-{{size}}" class="product-size col-1 btn btn-outline-dark m-0" (click)="changeSize(size)">{{size}}</div>
+        <div class="row">
+            <div *ngFor="let size of sizeEnum" class="pick-size col-1">
+                    <!-- If size is available -->
+                    <!-- <div *ngIf="availableSizes.indexOf(size) > -1 && availableStock[availableSizes.indexOf(size)] > 0; else sizeNotAvailable" 
+                        id="btn-size-{{size}}" class="product-size col-1 btn btn-outline-dark m-0" (click)="changeSize(productIds[size])">{{size}}</div>
 
-                </ng-template>
-                <!-- Else -->
-                <ng-template #sizeNotAvailable>
-                    <div type="button" class="col-1 btn btn-outline-secondary disabled m-0">{{size}}</div>
-                </ng-template>
+                    <ng-template #sizeNotAvailable>
+                        <div type="button" class="col-1 btn btn-outline-secondary disabled m-0">{{size}}</div>
+                    </ng-template> -->
+                    
+                    <div *ngIf="availableSizes.indexOf(size) > -1 && availableStock[availableSizes.indexOf(size)] > 0; else sizeNotAvailable" style="margin: 1em 0px;">
+                        <div *ngIf="id == productIds[size]; else notMySize"
+                            id="btn-size-{{size}}" class="product-size btn btn-outline-dark m-0 active" (click)="changeSize(productIds[size])">{{size}}</div>
+                        <ng-template #notMySize>
+                            <div id="btn-size-{{size}}" class="product-size btn btn-outline-dark m-0" (click)="changeSize(productIds[size])">{{size}}</div>
+                        </ng-template>
+                    </div>
+                    <ng-template #sizeNotAvailable>
+                        <div>
+                            <div type="button" class="btn btn-outline-secondary disabled m-0">{{size}}</div>
+                        </div>
+                    </ng-template>
+            </div>
         </div>
         <div class="row"><p class="product-description">{{product.description}}</p></div>
         <!-- If is logged -->
-        <div *ngIf="!isLogged; else notLogged" id="cart-form" method="post" action="/cart">
+        <div *ngIf="isLogged else notLogged" id="cart-form" method="post" action="/cart">
             <div class="row">
-                <div *ngIf="inWishlist; else notInWishlist" id="fav-btn" class="col-1 btn btn-outline-dark mx-1"><i class="fa-solid fa-heart"></i></div>
+                <div *ngIf="inWishlist; else notInWishlist" id="fav-btn" class="col-1 btn btn-outline-dark mx-1 active" (click)="removeFromWishlist(id)"><i class="fa-solid fa-heart"></i></div>
                 <ng-template #notInWishlist>
-                    <div id="fav-btn" class="col-1 btn btn-outline-dark mx-1" (click)="addToWishlist(product.id)"><i class="fa-solid fa-heart"></i></div>
+                    <div id="fav-btn" class="col-1 btn btn-outline-dark mx-1" (click)="addToWishlist(id)"><i class="fa-solid fa-heart"></i></div>
                 </ng-template>
 
-                <button *ngIf="inStock && !inCart; else notInStock" id="cart-btn" class="col-8 btn btn-outline-dark text-uppercase fw-bolder" type="button"><i class="bi-cart-fill"> Add to cart</i></button>
-                <ng-template #notInStock>
-                    <button id="cart-btn" class="col-8 btn btn-outline-dark text-uppercase fw-bolder disabled" type="button"><i class="bi-cart-fill"> Add to cart</i></button>
-                    <div class="col-2"><input class="rounded w-100 h-100 border-dark text-center softFont fw-bold" name="quantity" type="number" id="quantity" min="1" value="1">
-                        <input type="hidden" name="id" value="{{product.id}}"></div>
-                </ng-template>
+                <button *ngIf="product.stock > 0" id="cart-btn" class="col-8 btn btn-outline-dark text-uppercase fw-bolder" type="button" (click)="addToCart(id, quantity)"><i class="bi-cart-fill"> Add to cart</i></button>
+                <div *ngIf="product.stock > 0" class="col-2">
+                    <form>
+                        <input [(ngModel)]="quantity" class="rounded w-100 h-100 border-dark text-center softFont fw-bold" name="quantity" type="number" id="quantity" min="1">
+                    </form>
+                </div>
+                
                 
             </div>
         </div>

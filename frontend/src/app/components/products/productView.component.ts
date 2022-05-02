@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, ResolveEnd, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { User } from 'src/app/models/user.model';
 import { ProductsService } from 'src/app/services/products.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
+import { HeaderComponent } from '../header.component';
 
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
@@ -13,21 +15,26 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 
 
-export class ProductViewComponent {
+export class ProductViewComponent{
+    @ViewChild(HeaderComponent) header!: HeaderComponent;
+    id: number;
     user: User;
     isLogged: boolean = false;
     inWishlist: boolean = false;
-    inStock: boolean = true;
-    inCart: boolean = false;
+    inCart: boolean = true;
     chosenImage: number = 0;
-    availableProducts: Product[];
+    availableProducts: Product[] = [];
+    quantity: number = 1;
 
     product: Product;
     sizeEnum: Product["size"][];
-    availableSizes: Product["size"][];
+    availableSizes: Product["size"][] = [];
+    availableStock: Product["stock"][] = [];
+    productIds: number[] = [];
+
     constructor(private router: Router, private httpClient: HttpClient,
-        activatedRoute: ActivatedRoute, service: ProductsService) {
-            
+        private activatedRoute: ActivatedRoute, private service: ProductsService, public transactionService: TransactionsService) {
+    
         this.sizeEnum = service.getSizes();
         this.httpClient.get('/api/users/me', { withCredentials: true }).subscribe({
             next: response => {
@@ -39,37 +46,81 @@ export class ProductViewComponent {
                     console.error('Error when asking if logged: ' + JSON.stringify(error));
                 }
         }})
-       
-        let id = activatedRoute.snapshot.params['id'];
-        service.getProduct(id).subscribe({
-            next: product => this.product = product,
-            error: error => console.error(error)
-        });
 
-        service.getProduct(id).subscribe({
+        this.loadProduct();
+
+        router.events.subscribe(
+            (event) => {
+                if(event instanceof NavigationEnd)
+                    this.loadProduct()
+            });
+
+        //Get this product and all products with this name and different sizes
+        service.getProduct(this.id).subscribe({
             next: product => {
                 this.product = product;
                 service.getProductsByName(this.product.name).subscribe({
-                    next:  products => this.availableProducts = products,
+                    next:  products => {this.availableProducts = products;
+                         this.setAvailableSizes()},
                     error: error => console.error(error)
                 });
             },
             error: error => console.error(error)
         });
 
+        transactionService.getProductFromWishlist(this.id).subscribe({
+            next: product => this.inWishlist = true, 
+            error: error => this.inWishlist = false
+        });
+
+        // transactionService.getProductFromCart(id).subscribe({
+        //     next: product => this.inCart = true, 
+        //     error: error => this.inCart = false
+        // });
+
     }
 
-    changeSize(size: any){
-        //Have the ProductSize enum type here
+    loadProduct(){
+        this.id = this.activatedRoute.snapshot.params['id'];
+        this.service.getProduct(this.id).subscribe({
+            next: product => this.product = product,
+            error: error => console.error(error)
+        });
     }
 
-    addToWishlist(id: number | undefined){
-
+    removeFromWishlist(id: number){
+        this.transactionService.deleteProductFromWishlist(id).subscribe({
+            next: prod => {this.inWishlist = false},
+            error: error => {}
+        });
     }
 
-    getAvailableSizes(){
-        for(let prod of this.availableProducts){
-            this.availableSizes.push(prod.size);
-        }
+    changeSize(id: number){
+        this.router.navigate(["/productView/"+id]);
+    }
+
+    addToWishlist(id: number){
+        this.transactionService.addProductToWishlist(id).subscribe({
+            next: prod => {this.inWishlist = true},
+            error: error => {}
+        });
+    }
+
+    setAvailableSizes(){
+        this.availableProducts.forEach(
+            element => {
+                this.productIds[element.size] = element.id!;
+                this.availableSizes.push(element.size);
+                this.availableStock.push(element.stock)
+                }
+        );
+    }
+
+    addToCart(id:number, quantity:number){
+        this.transactionService.addProductToCart(id, quantity).subscribe({
+            next: response => this.header.updateCartNumber(),
+            error: error => console.log(error)
+        });
+        this.loadProduct();
     }
 }
