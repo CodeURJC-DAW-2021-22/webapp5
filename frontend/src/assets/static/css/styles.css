@@ -4721,6 +4721,12 @@ textarea.form-control-lg {
   border-bottom-left-radius: calc(0.25rem - 1px);
 }
 
+.card-img-top{
+  object-fit: cover;
+  height: 30vh;
+  object-position: 100% 0;
+}
+
 .card-group > .card {
   margin-bottom: 0.75rem;
 }
