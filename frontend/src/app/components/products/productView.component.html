@@ -1,0 +1,76 @@
+<div id="product-content-wrapper">
+    <div class="product-column">
+        <img id=product-featured [src]="product.images[0]">
+
+        <div id="product-slide-wrapper" >
+            <img id="product-slideLeft" class="product-arrow" src="../assets/static/assets/arrow-left.png">
+            <div id="product-slider">
+                <!-- <img class="product-thumbnail product-active" [src]="product.images[0]"> -->
+                <div *ngFor="let img of product.images; let i = index;">
+                    <img *ngIf="chosenImage == i; else notChosenImage" class="product-thumbnail product-active" [src]="img">
+                    <ng-template #notChosenImage>
+                        <img class="product-thumbnail" [src]="img" (click)="chosenImage=i">
+                    </ng-template>
+                </div>
+
+            </div>
+            <img id="product-slideRight" class="product-arrow" src="../assets/static/assets/arrow-right.png">
+        </div>
+    </div>
+
+    <div class="product-column container">
+        <div class="row"><h1 class="softFont product-name">{{product.name}}. Size: {{product.size}}</h1></div>
+        <hr>
+        <div class="row">
+            <div class="col-3 rounded pt-1 text-center"><h3 class="fs-4 softFont">${{product.price}}</h3></div>
+                <div *ngIf="product.stock == 0 else inStock" class="product-stock col-6 rounded p-1 text-center text-white fs-4 bg-danger softFont">Out of Stock</div>
+            <ng-template #inStock>
+                <div *ngIf="product.stock > 20 else lowStock" class="product-stock col-6 rounded p-1 text-center text-white fs-4 bg-success softFont">In Stock</div>
+                <ng-template #lowStock>
+                    <div class="product-stock col-6 rounded p-1 text-center fs-5 bg-warning softFont">Low Stock: Only {{product.stock}} units available</div>
+                </ng-template>
+            </ng-template>
+        </div>
+
+        <div *ngFor="let size of sizeEnum" class="pick-size row">
+                <ng-template *ngFor="let prod of availableProducts">
+                <!-- If size is available -->
+                    <div *ngIf="prod.size == size; else sizeNotAvailable" id="btn-size-{{size}}" class="product-size col-1 btn btn-outline-dark m-0" (click)="changeSize(size)">{{size}}</div>
+
+                </ng-template>
+                <!-- Else -->
+                <ng-template #sizeNotAvailable>
+                    <div type="button" class="col-1 btn btn-outline-secondary disabled m-0">{{size}}</div>
+                </ng-template>
+        </div>
+        <div class="row"><p class="product-description">{{product.description}}</p></div>
+        <!-- If is logged -->
+        <div *ngIf="!isLogged; else notLogged" id="cart-form" method="post" action="/cart">
+            <div class="row">
+                <div *ngIf="inWishlist; else notInWishlist" id="fav-btn" class="col-1 btn btn-outline-dark mx-1"><i class="fa-solid fa-heart"></i></div>
+                <ng-template #notInWishlist>
+                    <div id="fav-btn" class="col-1 btn btn-outline-dark mx-1" (click)="addToWishlist(product.id)"><i class="fa-solid fa-heart"></i></div>
+                </ng-template>
+
+                <button *ngIf="inStock && !inCart; else notInStock" id="cart-btn" class="col-8 btn btn-outline-dark text-uppercase fw-bolder" type="button"><i class="bi-cart-fill"> Add to cart</i></button>
+                <ng-template #notInStock>
+                    <button id="cart-btn" class="col-8 btn btn-outline-dark text-uppercase fw-bolder disabled" type="button"><i class="bi-cart-fill"> Add to cart</i></button>
+                    <div class="col-2"><input class="rounded w-100 h-100 border-dark text-center softFont fw-bold" name="quantity" type="number" id="quantity" min="1" value="1">
+                        <input type="hidden" name="id" value="{{product.id}}"></div>
+                </ng-template>
+                
+            </div>
+        </div>
+        <!-- <div id="msg-label" class="row softFont my-2 p-1">
+            <div id="cart-add-label" class="msg-label col-10 rounded m-0 bg-success fs-4 text-center text-white fw-bold">Added to Cart</div>
+            <div id="wishlist-add-label" class="msg-label col-10 rounded m-0 bg-success fs-4 text-center text-white fw-bold">Added to Wishlist</div>
+            <div id="wishlist-remove-label" class="msg-label col-10 rounded m-0 bg-danger fs-4 text-center text-white fw-bold">Removed from Wishlist</div>
+        </div> -->
+        <!-- Else -->
+        <ng-template #notLogged>
+            <div #notLogged class="row"><a class="col btn btn-outline-dark text-uppercase" [routerLink]="['/login']">Sign in</a></div>
+        </ng-template>
+        <!-- End else -->
+    </div>
+
+</div>

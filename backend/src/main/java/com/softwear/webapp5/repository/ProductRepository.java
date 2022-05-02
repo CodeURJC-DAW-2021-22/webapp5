@@ -39,6 +39,29 @@ public interface ProductRepository extends JpaRepository <Product, Long> {
             nativeQuery = true)
     Page<Product> findAllNames(Pageable page);
 
+    @Query(value=
+            "SELECT DISTINCT ON (NAME) * "
+            + "FROM PRODUCT",
+            nativeQuery = true)
+    public List<Product> findAllNames();
+    @Query(value=
+            "SELECT * "
+            + "FROM PRODUCT WHERE SIZE=:productSize",
+            nativeQuery = true)
+    public Optional<Product> findBySize(ProductSize productSize);
+
+    @Query(value=
+            "SELECT * "
+            + "FROM PRODUCT WHERE SIZE=:size and NAME=:name",
+            nativeQuery = true)
+    public Page<Product> findByNameAndSize(String name, ProductSize size, Pageable page);
+
+    @Query(value=
+            "SELECT * "
+            + "FROM PRODUCT WHERE NAME=:name",
+            nativeQuery = true)
+    public Optional<List<Product>> findByName(String name);
+
 //    @Query(value = "SELECT * FROM product WHERE name = :name ORDER BY id ASC LIMIT 1", nativeQuery = true)
 //    Optional<Product> findOneName(@Param("name") String name);
 }

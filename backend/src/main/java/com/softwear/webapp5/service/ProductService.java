@@ -141,14 +141,14 @@ public class ProductService {
 		return productRepository.findByNameAndSize(name, size);
 	}
 
+	public Page<Product> findByNameAndSize(String name, ProductSize size, Pageable page) {
+		return productRepository.findByNameAndSize(name, size, page);
+	}
+
 	public List<Long> getLeastBoughtProducts(int num) {
         List<Long> leastBoughtProducts = productRepository.getLeastBoughtProducts(num);
         return leastBoughtProducts;
     }
-
-	public Page<Product> findAllNames(Pageable page){
-		return productRepository.findAllNames(page);
-	}
 
     public List<Product> deleteImage(Product product, int imageIndex) {
 
@@ -205,7 +205,19 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-//	public Optional<Product> findOneName(String name){
-//        return productRepository.findOneName(name);
-//    }
+	public Page<Product> findAllNames(Pageable pageable){
+		return productRepository.findAllNames(pageable);
+	}
+
+	public List<Product> findAllNames(){
+		return productRepository.findAllNames();
+	}
+
+	public Optional<Product> findBySize(ProductSize productSize) {
+		return productRepository.findBySize(productSize);
+	}
+
+    public Optional<List<Product>> findByName(String name) {
+        return productRepository.findByName(name);
+    }
 }
