@@ -14,8 +14,8 @@ export class AdminHomeComponent{
   randomRGB = () => `rgba(${this.randomNum()}, ${this.randomNum()}, ${this.randomNum()}, 0.2)`;
 
   constructor(private httpClient: HttpClient, public loginService: LoginService){
-    this.httpClient.get("/apiadmin/statics").subscribe({
-      next: response => {console.log(response)
+    this.httpClient.get("/api/statics").subscribe({
+      next: response => {
         let label: any[] = []
         let dataIncomes: any[] = []
         let dataSales: any[] = []
@@ -23,7 +23,6 @@ export class AdminHomeComponent{
         let products = []
         products = response as []
         products.forEach(product =>{
-            console.log(product)
             label.push(product["productName"])
             dataIncomes.push(product["incomes"])
             dataSales.push(product["sales"])

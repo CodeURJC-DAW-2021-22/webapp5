@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.softwear.webapp5.data.StaticDTO;
 import com.softwear.webapp5.data.TransactionView;
 import com.softwear.webapp5.model.Coupon;
 import com.softwear.webapp5.model.Product;
@@ -474,5 +475,11 @@ public class RestTransactionController {
         return transactionService.findByType(type.toUpperCase());
     }
     
+
+    @GetMapping("/statics")
+    public ResponseEntity<List<StaticDTO>> getStatics() {
+        List<StaticDTO> statics = transactionService.getStatics();
+        return ResponseEntity.ok(statics);
+    }
     
 }

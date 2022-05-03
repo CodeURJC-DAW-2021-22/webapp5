@@ -146,12 +146,6 @@ public class RestAdminController {
         return product;
     }
 
-    @GetMapping("/statics")
-    public List<StaticDTO> getStatics() {
-        List<StaticDTO> statics = transactionService.getStatics();
-        return statics;
-    }
-
     @PostMapping("/manageCoupons")
     public Coupon coupons(@RequestParam String mode, @RequestParam(required = false) Long id, @RequestParam(required = false) String code,
     @RequestParam(required = false) String type, @RequestParam(required = false) String startDate,
