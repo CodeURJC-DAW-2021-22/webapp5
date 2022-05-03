@@ -1,0 +1,56 @@
+<headerUser></headerUser>
+<div class="card mb-4 shadow-sm" style="border: 1px solid rgba(114, 114, 114, 0.26); margin: 30px; border-radius: 5px;">
+  <div class="card-header">
+      <div class="row">
+          <div class="col-11"><h2 class="softFont">Cart</h2></div>
+          <div class="col-1">
+              <button class="btn btn-outline-dark fa-solid fa-trash" (click)="emptyCart()" type="button"></button>
+          </div>
+      </div>
+  </div>
+  <div class="card-body">
+      <table class="table">
+          <tbody class="cart">
+            <tr *ngFor="let entry of entries; let entry_index = index" id="product_{{entry.id}}" class="product-row">
+              <td class="cart-text product-index">#{{entry_index + 1}}</td>
+              <td>
+                  <a [routerLink]="['/productView', entry.id]" class="btn border-0">{{entry.product.name}} ({{entry.product.size}})</a>
+              </td>
+              <td class="cart-text product-unit-price">${{entry.product.price}}</td>
+              <td class="text-center" style="width: 60px;">
+                  <button class="btn btn-block btn-sm btn-outline-dark fw-bold" (click)="increaseQuantity(entry_index)" type="button">+</button>
+              </td>
+              <td class="cart-text text-center product-quantity">{{entry.quantity}}</td>
+              <td class="text-center" style="width: 60px;">
+                  <button class="btn btn-block btn-sm btn-outline-dark fw-bold" (click)="decreaseQuantity(entry_index)" type="button">-</button>
+              </td>
+              <td class="cart-text text-right product-total-price">${{entry.totalPrice}}</td>
+              <td class="text-right">
+                  <button class="btn btn-outline-dark fw-bold" (click)="delete(entry_index)" type="button">Delete</button>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <tfoot>
+          <tr id="apply-coupon">
+              <td></td>
+              <td class="cart-text">Total</td>
+              <td></td>
+              <td></td>
+              <td class="cart-text text-center cart-items-number">{{getTotalItems()}}</td>
+              <td></td>
+              <td class="cart-text text-right"><strong class="total cart-total-price">${{getTotalPrice()}}</strong></td>
+              <td></td>
+              <td></td>
+              <td></td>
+          </tr>
+          </tfoot>
+      </table>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 2rem;">
+          <a class="btn btn-outline-dark checkout-btn fa-brands fa-paypal" (click)="purchaseCart()"></a>
+          <a class="btn btn-outline-dark checkout-btn fa-brands fa-cc-amazon-pay" (click)="purchaseCart()"></a>
+          <a class="btn btn-outline-dark checkout-btn fa-solid fa-credit-card" (click)="purchaseCart()"></a>
+      </div>
+  </div>
+</div>

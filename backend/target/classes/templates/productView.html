@@ -1,106 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Softwear - Softest Wereables On The Market</title>
-        <!-- Favicon-->
-        <link rel="icon"  href="../assets/icon.svg" />
-        <!-- Bootstrap icons-->
-        <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />-->
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-	<link rel="stylesheet" type="text/css" href="../css/styles.css">
-</head>
-<body>
-	
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- bg-light -->
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/"><img src="../assets/full-logo-new.svg" style = "width: 5vw"></a>
-                <a class="navbar-brand-2 user-icon-small-screen" href="login.html"><img src="../assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex cart-icon">
-                        <a class="btn btn-outline-dark" href="cart.html">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </a>
-                    </form>
-                    
-                </div>
-                <a class="navbar-brand-2 user-icon-big-screen" href="login.html"><img src="../assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
-            </div>
-        </nav>
-	
-	
+{{>header}}	
 	<div id="product-content-wrapper">
-		
+        <div class="product-column">
+            <img id=product-featured src="{{product.images.0}}">
 
-		<div class="product-column">
-			<img id=product-featured src="../assets/productos/item1.webp">
-
-			<div id="product-slide-wrapper" >
-				<img id="product-slideLeft" class="product-arrow" src="../assets/arrow-left.png">
-
-				<div id="product-slider">
-					<img class="product-thumbnail product-active" src="../assets/productos/item1.webp">
-					<img class="product-thumbnail" src="../assets/productos/item2.webp">
-					<img class="product-thumbnail" src="../assets/productos/item3.webp">
-				</div>
-
-				<img id="product-slideRight" class="product-arrow" src="../assets/arrow-right.png">
-			</div>
-		</div>
-
-		<div class="product-column">
-			<h1 class="softFont">Softcoat</h1>
-			<hr>
-			<h3>$49.99</h3>
-            <div class="pick-size">
-                <a class="btn btn-outline-dark">XS</a>
-                <a class="btn btn-outline-dark">S</a>
-                <a class="btn btn-outline-dark">M</a>
-                <a class="btn btn-outline-dark">L</a>
-                <a class="btn btn-outline-dark">XL</a>
+            <div id="product-slide-wrapper" >
+                <img id="product-slideLeft" class="product-arrow" src="../assets/arrow-left.png">
+                <div id="product-slider">
+                    <img class="product-thumbnail product-active" src="{{firstImg}}">
+                    {{#nonFirstImgs}}
+                        <img class="product-thumbnail" src="{{this}}">
+                    {{/nonFirstImgs}}
+                </div>
+                <img id="product-slideRight" class="product-arrow" src="../assets/arrow-right.png">
             </div>
-			<p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
 
-			<input value=1 type="number">
-			<a class="btn btn-dark" href="#">Add to Cart</a>
-		</div>
+        <div class="product-column container">
+            <div class="row"><h1 class="softFont product-name">{{product.name}}</h1></div>
+            <hr>
+            <div class="row">
+                <div class="col-3 rounded pt-1 text-center"><h3 class="fs-4 softFont">${{product.price}}</h3></div>
+                {{#inStock}}
+                    {{#lowStock}}
+                        <div class="product-stock col-6 rounded p-1 text-center fs-5 bg-warning softFont">Low Stock: Only {{product.stock}} units available</div>
+                    {{/lowStock}}
+                    {{^lowStock}}
+                        <div class="product-stock col-6 rounded p-1 text-center text-white fs-4 bg-success softFont">In Stock</div>
+                    {{/lowStock}}
+                {{/inStock}}
+                {{^inStock}}
+                    <div class="product-stock col-6 rounded p-1 text-center text-white fs-4 bg-danger softFont">Out of Stock</div>
+                {{/inStock}}
+            </div>
+            <div class="pick-size row">
+                {{#availableSizesStatus}}
+                    {{#this.availableSize}}
+                    <div id="btn-size-{{this.size}}" class="product-size col-1 btn btn-outline-dark m-0" onclick="changeSize('{{this.size}}')">{{this.size}}</div>
+                    {{/this.availableSize}}
 
-	</div>
-	<footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Softwear 2022</p></div> <!--<script>Date().getFullYear()</script> -->
-    </footer>
-    
-    <script
-			  src="https://code.jquery.com/jquery-3.6.0.min.js"
-			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			  crossorigin="anonymous"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Carousel JQuery Plugin-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-	<script src="../js/productView.js"></script>
+                    {{^this.availableSize}}
+                    <div type="button" class="col-1 btn btn-outline-secondary disabled m-0">{{this.size}}</div>
+                    {{/this.availableSize}}
+                {{/availableSizesStatus}}
+            </div>
+            <div class="row"><p class="product-description">{{product.description}}</p></div>
+            {{#logged}}
+            <form id="cart-form" method="post" action="/cart">
+                <div class="row">
+                    <div id="fav-btn" class="col-1 btn btn-outline-dark mx-1 {{#inWishlist}}bg-dark text-white{{/inWishlist}}" onclick="wishlist({{product.id}}, '{{product.name}}')"><i class="fa-solid fa-heart"></i></div>
+                    <button id="cart-btn" class="col-8 btn btn-outline-dark text-uppercase fw-bolder {{^inStock}}disabled{{/inStock}}" type="submit"><i class="bi-cart-fill"> Add to cart</i></button>
+                    <div class="col-2"><input class="rounded w-100 h-100 border-dark text-center softFont fw-bold" name="quantity" type="number" id="quantity" min="1" value="1">
+                        <input type="hidden" name="id" value="{{product.id}}"></div>
+                </div>
+            </form>
+            <div id="msg-label" class="row softFont my-2 p-1">
+                <div id="cart-add-label" class="msg-label col-10 rounded m-0 bg-success fs-4 text-center text-white fw-bold">Added to Cart</div>
+                <div id="wishlist-add-label" class="msg-label col-10 rounded m-0 bg-success fs-4 text-center text-white fw-bold">Added to Wishlist</div>
+                <div id="wishlist-remove-label" class="msg-label col-10 rounded m-0 bg-danger fs-4 text-center text-white fw-bold">Removed from Wishlist</div>
+            </div>
+            {{/logged}}
+            {{^logged}}
+            <div class="row"><a class="col btn btn-outline-dark text-uppercase" href="/login">Sign in</a></div>
+            {{/logged}}
+	    </div>
 
-</body>
-</html>
+    </div>
+<script src="../js/productView.js"></script>
+{{>footer}}

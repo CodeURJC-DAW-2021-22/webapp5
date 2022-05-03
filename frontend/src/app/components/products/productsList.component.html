@@ -1,0 +1,36 @@
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center" id="products">
+            <div *ngFor="let entry of entries; let index = index" class="col mb-5">
+                <div id="product-{{entry.product.id}}" class="card h-100 product">
+                    <meta class="product-id" content="{{entry.product.id}}"/>
+                    <div *ngIf="entry.inWishlist; else noWish" id="product-{{entry.product.id}}-fav-badge" class="badge product-fav-badge bg-dark text-white position-absolute favIcon" (click)="setWishlist(index, false)"><i class="fa-solid fa-heart"></i></div>
+                    <ng-template #noWish>
+                      <div id="product-{{entry.product.id}}-fav-badge" class="badge product-fav-badge bg-white text-black position-absolute favIcon" (click)="setWishlist(index, true)"><i class="fa-solid fa-heart"></i></div>
+                    </ng-template>
+                    <!-- Product image-->
+
+                    <a [routerLink]="['/productView', entry.product.id]"><img class="card-img-top" [src]="entry.product.images[0]" alt="Product {{entry.product.id}}" /></a>
+
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder product-name">{{entry.product.name}}</h5>
+                            <!-- Product price-->
+                            ${{entry.product.price}}
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"[routerLink]="['/productView', entry.product.id]">View options</a></div>
+                        <!-- if product is in wish list print fav icon -->
+                        <i *ngIf="entry.inWishlist" id="product-{{entry.product.id}}-fav-icon" class="product-fav-icon fa-solid fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <div *ngIf="currentPage < maxPages" class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" (click)="more()">More</a></div>
+    </div>
+  </section>

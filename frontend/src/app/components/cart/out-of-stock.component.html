@@ -1,0 +1,19 @@
+<headerUser></headerUser>
+<div class="container softFont">
+  <div class="card border-0 shadow rounded-3 align-items-center my-3 mx-10">
+      <div class="row">
+          <div class="col"><h1 class="advise-title">Not enough stock of the product:</h1></div>
+      </div>
+      <div class="row">
+          <div class="col">
+              <a class="btn btn-outline-dark border-0 fs-3" [routerLink]="['/productView', productId]">{{productName}}&emsp;Stock: {{productStock}}</a>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col card-body"><a class="btn btn-outline-dark text-uppercase fw-bold" [routerLink]="['/cart']">Return to Cart</a></div>
+      </div>
+      <div class="row">
+          <div class="col card-body"><a class="btn btn-outline-dark text-uppercase fw-bold" [routerLink]="['/']">Return to Main Page</a></div>
+      </div>
+  </div>
+</div>

@@ -22,8 +22,8 @@ public class ShopUserView {
 		this.name=u.getName();
 		this.lastName=u.getLastName();
 		this.address=u.getAddress();
-		this.phoneNumber= u.getMobileNumber();
-		this.birthDate= u.getBirthdate();
+		this.phoneNumber= u.getPhoneNumber();
+		this.birthDate= u.getBirthDate();
 		this.role=u.getRole();
 	}
 	

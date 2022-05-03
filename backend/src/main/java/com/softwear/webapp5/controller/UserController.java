@@ -42,8 +42,8 @@ public class UserController {
 		model.addAttribute("lastName", user.getLastName());
 		model.addAttribute("address", user.getAddress());
 		model.addAttribute("email", user.getEmail());
-		model.addAttribute("mobileNumber", user.getMobileNumber());
-		model.addAttribute("birthdate", user.getBirthdate());
+		model.addAttribute("mobileNumber", user.getPhoneNumber());
+		model.addAttribute("birthdate", user.getBirthDate());
 
 		model.addAttribute("fromCart", fromCart);
 
@@ -83,6 +83,15 @@ public class UserController {
         return "purchaseHistory";
     }
     
+
+	@PostMapping("/login")
+	public void login(Model model, HttpServletRequest request, ShopUser u){
+		try {
+			request.login(u.getUsername(), u.getPassword());
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+	}
     
 	@GetMapping("/login") //Missing id
 	public String loginPage(Model model, HttpServletRequest request) {
@@ -117,7 +126,7 @@ public class UserController {
 			u.setPassword(passwordEncoder.encode(confPass));
 			u.setName("");
 			u.setAddress("");
-			u.setBirthdate("");
+			u.setBirthDate("");
 			u.setLastName("");
 			u.setName("");
 			u.setRole("USER");

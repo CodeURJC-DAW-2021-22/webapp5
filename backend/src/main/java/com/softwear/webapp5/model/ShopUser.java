@@ -19,13 +19,12 @@ public class ShopUser {
 	private String name;
 	private String lastName;
 	@Column(nullable = false)
-
 	private String password;
 	private String address;
 	
 	@Column(unique=true)
-	private int mobileNumber;
-	private String birthdate;
+	private int phoneNumber;
+	private String birthDate;
 	@Column(nullable = false)
 	private String role;
 	
@@ -37,15 +36,15 @@ public class ShopUser {
 		
 
 	public ShopUser(String username, String email, String name, String lastName, String password, String address,
-			int mobileNumber, String birthdate, String role) {
+			int mobileNumber, String birthDate, String role) {
 		this.username = username;
 		this.email = email;
 		this.name = name;
 		this.lastName = lastName;
 		this.password = password;
 		this.address = address;
-		this.mobileNumber = mobileNumber;
-		this.birthdate = birthdate;
+		this.phoneNumber = mobileNumber;
+		this.birthDate = birthDate;
 		this.setRole(role);
 	}
 
@@ -121,23 +120,23 @@ public class ShopUser {
 	}
 
 
-	public int getMobileNumber() {
-		return mobileNumber;
+	public int getPhoneNumber() {
+		return phoneNumber;
 	}
 
 
-	public void setMobileNumber(int mobileNumber) {
-		this.mobileNumber = mobileNumber;
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 
-	public String getBirthdate() {
-		return birthdate;
+	public String getBirthDate() {
+		return this.birthDate;
 	}
 
 
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
 	}
 
 

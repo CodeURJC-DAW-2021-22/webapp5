@@ -1,141 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Softwear - Softest Wereables On The Market</title>
-        <!-- Favicon-->
-        <link rel="icon"  href="../assets/icon.svg" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-        <!-- FontAwesome CDN -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></link>
-    </head>
-    <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- bg-light -->
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/"><img src="../assets/full-logo-new.svg" style = "width: 5vw"></a>
-                <a class="navbar-brand-2 user-icon-small-screen" href="./login.html"><img src="../assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex cart-icon">
-                        <a class="btn btn-outline-dark" href="cart.html">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </a>
-                    </form>
-                    
+{{>header}}
+
+    <div class="card mb-4 shadow-sm" style="border: 1px solid rgba(114, 114, 114, 0.26); margin: 30px; border-radius: 5px;">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-11"><h2 class="softFont">Wish List</h2></div>
+                <div class="col-1">
+                    <button class="btn btn-outline-dark fa-solid fa-trash" onclick="empty()" type="button"></button>
                 </div>
-                <a class="navbar-brand-2 user-icon-big-screen" href="./login.html"><img src="../assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
-            </div>
-        </nav>
-        <!-- Header-->
-            <!-- <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder softFont">Softwear</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">The softest wereables on the internet</p>
-                </div>
-            </div> -->
-            
-
-
-        <!-- <div class="cart-body">
-            <div class="cart-container">
-                <div class="cart-header">
-                    <h3 class="cart-heading">Shopping Cart</h3>
-                    <h5 class="cart-action">Remove all</h5>
-                </div>
-
-                <div class="cart-items">
-                    <div class="cart-image-box">
-                        <img src="../assets/productos/item1.webp" />
-                    </div>
-                    <div class="cart-item-about">
-                        <h2 class="cart-item-title">Softcoat</h1>
-                        <h3 class="cart-item-subtitle">Leather Jacket</h3>
-                        <img src="../assets/green-dot.png" style="height: 20px;"/>
-                    </div>
-                    <div class="cart-item-counter">
-                            <div class="cart-counter-btn">+</div>
-                            <div class="cart-item-count">2</div>
-                            <div class="cart-counter-btn">-</div>
-                    </div>
-                    <div class="cart-item-prices">
-                        <div class="cart-item-amount">$2.99</div>
-                        <div class="cart-item-toWishList"><u>Add to Wish List</u></div>
-                        <div class="cart-item-remove"><u>Remove</u></div>
-                    </div>
-                </div>
-
-            </div>
-        </div> -->
-
-
-        <div class="card mb-4 shadow-sm" style="border: 1px solid rgba(114, 114, 114, 0.26); margin: 30px; border-radius: 5px;">
-            <div class="card-header">
-                <h2 class="softFont">Wish List</h2>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <tbody class="cart">
-                    <tr>
-                        <td>#1</td>
-                        <td>Leather Jacket</td>
-                        <td class="text-right">$18</td>
-                        <td class="text-right"><button class="btn btn-outline-dark text-uppercase fw-bold" onclick="">Buy</button></td>
-                        <td class="text-right"><button class="btn btn-outline-dark text-uppercase fw-bold" onclick="">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>#2</td>
-                        <td>Softcoat</td>
-                        <td class="text-right">$49.99</td>
-                        <td class="text-right"><button class="btn btn-outline-dark text-uppercase fw-bold" onclick="">Buy</button></td>
-                        <td class="text-right"><button class="btn btn-outline-dark text-uppercase fw-bold" onclick="">Delete</button></td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
+        <div class="card-body">
+            <table class="table">
+                <tbody class="cart">
+                {{#wishlist}}
+                {{#transactionEntries}}
+                <tr id="product_{{product.id}}" class="product-row">
+                    <td class="cart-text product-index">#{{-index}}</td>
+                    {{#product}}
+                    <td>
+                        <a class="btn border-0" href="/productView/{{id}}">{{name}}</a>
+                    </td>
+                    <td class="cart-text text-right product-price">${{price}}</td>
+                    <td><button class="btn btn-outline-dark text-uppercase fw-bold" onclick="buy({{id}})" type="button">Buy</button></td>
+                    <td><button class="btn btn-outline-dark text-uppercase fw-bold" onclick="deleteFromWishlist({{id}})" type="button">Remove</button></td>
+                    {{/product}}
+                </tr>
+                {{/transactionEntries}}
+                {{/wishlist}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/wishlist.js"></script>
 
-
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Softwear 2022</p></div> <!--<script>Date().getFullYear()</script> -->
-        </footer>
-        <!-- JQuery CDN-->
-        <script
-			  src="https://code.jquery.com/jquery-3.6.0.min.js"
-			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			  crossorigin="anonymous"></script>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Carousel JQuery Plugin-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-        <!-- Cart Jquery Plugin -->
-        <!-- <script src="https://unpkg.com/cart-localstorage@latest/dist/cart-localstorage.min.js"></script> -->
-        <!-- Cart Custom JS-->
-        <script src="../js/cart.js"></script>
-    </body>
-</html>
+{{>footer}}

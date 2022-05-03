@@ -1,59 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Softwear - Softest Wereables On The Market</title>
-        <!-- Favicon-->
-        <link rel="icon"  href="../assets/icon.svg" />
-        <!-- Bootstrap icons-->
-        <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />-->
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-	<link rel="stylesheet" type="text/css" href="../css/styles.css">
-</head>
-<body class="bg-light">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- bg-light -->
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/"><img src="../assets/full-logo-new.svg" style = "width: 5vw"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex cart-icon">
-                        <a class="btn btn-outline-dark" href="cart.html">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-						</a>
-                    </form>
-                    
-                </div>
-            </div>
-        </nav>
-        
+{{>header}} 
         <div class="container-xl px-4 mt-4">
 		    <!-- Account page navigation-->
 		    <nav class="nav nav-borders">
-		        <a class="nav-link active ms-0" href="./userProfile.html" target="__blank">Profile</a>
-				<a class="nav-link ms-0" href="./orders.html" target="__blank">Orders</a>
+		        <a class="nav-link active ms-0" href="/userProfile">Profile</a>
+				<a class="nav-link ms-0" href="/purchaseHistory">Orders</a>
 		    </nav>
 		    <hr class="mt-0 mb-4">
 		    <div class="row">
@@ -73,57 +23,54 @@
 		        </div>
 		        <div class="col-xl-8">
 		            <!-- Account details card-->
-		            <div class="card mb-4">
+		            <div class="card mb-4" >
 		                <div class="card-header">Account Details</div>
-		                <div class="card-body">
-		                    <form>
-		                        <!-- Form Group (username)-->
-		                        <div class="mb-3">
-		                            <label class="small mb-1" for="inputUsername">Username</label>
-		                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="Joramar">
-		                        </div>
+		                <div class="card-body" id="formBox">
+		                    <form action="/userProfile" method="post">
+		                        <input type="hidden" name="_csrf" value="{{token}}">
+		                        {{#fromCart}}<input type="hidden" name="fromCart" value="true">{{/fromCart}}
 		                        <!-- Form Row-->
 		                        <div class="row gx-3 mb-3">
 		                            <!-- Form Group (first name)-->
 		                            <div class="col-md-6">
 		                                <label class="small mb-1" for="inputFirstName">First name</label>
-		                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Jose Ramon">
+		                                <input class="form-control" name="name" type="text" placeholder="Enter your first name" value="{{name}}" id="inputFirstName" {{#fromCart}}required{{/fromCart}}>
 		                            </div>
 		                            <!-- Form Group (last name)-->
 		                            <div class="col-md-6">
 		                                <label class="small mb-1" for="inputLastName">Last name</label>
-		                                <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Martinez">
+		                                <input class="form-control" name="lastName" type="text" placeholder="Enter your last name" value="{{lastName}}" id="inputLastName" {{#fromCart}}required{{/fromCart}}>
 		                            </div>
 		                        </div>
 		                        <!-- Form Row        -->
 		                        <div class="row gx-3 mb-3">
 		                          
-		                            <!-- Form Group (location)-->
+		                            <!-- Form Group (Address)-->
 		                            <div class="col-md-6">
-		                                <label class="small mb-1" for="inputLocation">Location</label>
-		                                <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="Madrid, Spain">
+		                                <label class="small mb-1" for="inputAddress">Address</label>
+		                                <input class="form-control" name="address" type="text" placeholder="Enter your address" value="{{address}}" id="inputAddress" {{#fromCart}}required{{/fromCart}}>
 		                            </div>
 		                        </div>
 		                        <!-- Form Group (email address)-->
 		                        <div class="mb-3">
 		                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
-		                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+		                            <input class="form-control" name="email" type="email" placeholder="Enter your email address" value="{{email}}"  id="inputEmailAddress" {{#fromCart}}required{{/fromCart}}>
 		                        </div>
 		                        <!-- Form Row-->
 		                        <div class="row gx-3 mb-3">
 		                            <!-- Form Group (phone number)-->
 		                            <div class="col-md-6">
 		                                <label class="small mb-1" for="inputPhone">Phone number</label>
-		                                <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="+34">
+		                                <input class="form-control" name="mobileNumber" type="text" placeholder="Enter your phone number" value="{{mobileNumber}}" id="inputPhone">
 		                            </div>
 		                            <!-- Form Group (birthday)-->
 		                            <div class="col-md-6">
-		                                <label class="small mb-1" for="inputBirthday">Birthday</label>
-		                                <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+		                                <label class="small mb-1" for="inputBirthdate">Birthdate</label>
+		                                <input class="form-control" name="birthdate" type="text" placeholder="Enter your birthdate" value="{{birthdate}}" id="inputBirthdate">
 		                            </div>
 		                        </div>
 		                        <!-- Save changes button-->
-		                        <button class="btn btn-outline-dark" type="button">Save Changes</button>
+		                        <button class="btn btn-outline-dark" type="button" onclick="updateInfo()">Save Changes</button>
 		                        
 		                        <button class="btn btn-outline-dark" type="button" onclick="openFormChangePassword()">Change Password</button>
 		                        
@@ -135,43 +82,29 @@
 		</div>
         
         <div class="form-popup" id="change-password-form">
-             <form  class="form-container">
+             <form  class="form-container" action="/userProfile/changePassword" method="post">
+             	
+         		 <input type="hidden" name="_csrf" value="{{token}}">
                  <h2 style="margin-bottom: 8vh; margin-top: 2vh;">Change Password</h2>
 
                  <div class="form-floating mb-3">
-                     <input type="password" class="form-control" id="floatingPasswordOld" placeholder="Old Password" required>
+                     <input type="password" class="form-control" name="oldPass" placeholder="Old Password" id="floatingPasswordOld" required>
                      <label for="floatingPasswordOld">Previous Password</label>
                  </div>
                  <div class="form-floating mb-3">
-                     <input type="password" class="form-control" id="floatingPasswordNew" placeholder="New Password" required>
+                     <input type="password" class="form-control" name="newPass" placeholder="New Password" id="floatingPasswordNew" required>
                      <label for="floatingPasswordNew">New Password</label>
                  </div>
                  <div class="form-floating mb-3">
-                     <input type="password" class="form-control" id="floatingPasswordNewRepeat" placeholder="New Password" required>
+                     <input type="password" class="form-control" name="newConfPass" placeholder="New Password"  id="floatingPasswordNewRepeat" required>
                      <label for="floatingPasswordNewRepeat">Repeat New Password</label>
                  </div>
                  <div class="container" id="changePassword-btn-container">
-                         <div class="row"><button type="submit" class="btn btn-outline-dark text-uppercase fw-bold" id="confirm-changePassword" >Change Password</button></div>
+                         <div class="row"><button type="button" class="btn btn-outline-dark text-uppercase fw-bold" id="confirm-changePassword" onclick="updatePass()">Change Password</button></div>
                          <div class="row"><button type="button" class="btn btn-outline-dark text-uppercase fw-bold" id="cancel-changePassword" onclick="closeFormChangePassword()">Cancel</button></div>
                  </div>
              </form>
-         </div> 
-        
-        
-        
-       <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Softwear 2022</p></div> <!--<script>Date().getFullYear()</script> -->
-    </footer>
-    
-    <script
-			  src="https://code.jquery.com/jquery-3.6.0.min.js"
-			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			  crossorigin="anonymous"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Carousel JQuery Plugin-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-	<script src="../js/editProfile.js"></script>
+         </div>
 
-</body>
-</html>
+         <script src="js/editProfile.js"></script>
+{{>footer}}

@@ -74,7 +74,7 @@ public class RestAdminController {
                 else
                     password = oldUser.getPassword();
                 ShopUser newUser = new ShopUser(username, email, name, lastName, password, address, mobileNumber, birthdate, role);
-                userService.updateAdminInfo(oldUser, newUser);
+                userService.updateAdminInfo(oldUser, newUser,true);
                 return oldUser;
             }
             
@@ -144,12 +144,6 @@ public class RestAdminController {
         product.setImageFiles(imageFiles);*/
         productService.save(product);
         return product;
-    }
-
-    @GetMapping("/statics")
-    public List<StaticDTO> getStatics(HttpServletResponse response) {
-        List<StaticDTO> statics = transactionService.getStatics();
-        return statics;
     }
 
     @PostMapping("/manageCoupons")

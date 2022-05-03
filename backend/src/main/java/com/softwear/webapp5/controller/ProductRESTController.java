@@ -6,12 +6,16 @@ import com.softwear.webapp5.model.Product;
 import com.softwear.webapp5.service.ProductService;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import net.bytebuddy.asm.Advice.Return;
 
 import java.io.IOException;
 import java.net.URI;
@@ -43,31 +47,73 @@ public class ProductRESTController {
         } 
     }
 
+    // @GetMapping("/{name}")
+    // public ResponseEntity<Page<Product>> getProductsByName(@PathVariable String name, @RequestParam(required = false) PageRequest page) {a
+    //     Page<Product> products = productService.findByName(name, page);
+    //     return ResponseEntity.ok(products);
+    // }
+
     @GetMapping("")
     public ResponseEntity<List<Product>> getProduct(@RequestParam(required = false) String name, @RequestParam(required = false) String size, 
-    @RequestParam(required = false) Integer page){
-        
-        if(name == null || size == null){
-            if(page == null)
-                return ResponseEntity.ok(productService.findAll());
+    @RequestParam(required = false) Boolean isDistinct, @RequestParam(required = false) Integer page){
+        List<Product> response = new ArrayList<>();
+        if(page == null){
+            if(name == null && size == null){
+                if(isDistinct == null || !isDistinct){
+                    response = productService.findAll();
+                }else
+                    response = productService.findAllNames();
+            }else if(name != null && size != null){
+                ProductSize productSize = ProductSize.stringToProductSize(size);
+                Optional<Product> product = productService.findByNameAndSize(name, productSize);
+                if (product.isPresent()){
+                    response.add(product.get());
+                }
+            }else if(name == null && size != null){
+                ProductSize productSize = ProductSize.stringToProductSize(size);
+                Optional<Product> product = productService.findBySize(productSize);
+                if(product.isPresent())
+                    response.add(product.get());
+            }else{
+                Optional<List<Product>> product = productService.findByName(name);
+                if(product.isPresent())
+                    response = product.get();
+            }
+            return ResponseEntity.ok(response);
+        }else{
+            if(page < 1)
+                return ResponseEntity.badRequest().build();
             else{
-                if(page < 1)
-                    return ResponseEntity.badRequest().build();
-                else
-                    return ResponseEntity.ok(productService.findAll(PageRequest.of(page - 1, 1)).toList());
+                if(name == null && size == null){
+                    if(isDistinct == null || !isDistinct)
+                        response = productService.findAll(PageRequest.of(page - 1, 10)).toList();
+                    else
+                        response = productService.findAllNames(PageRequest.of(page - 1, 10)).toList();
+                }else if(name != null && size != null){
+                    ProductSize productSize = ProductSize.stringToProductSize(size);
+                    Optional<Product> product = productService.findByNameAndSize(name, productSize);
+                    if (product.isPresent()){
+                        response.add(product.get());
+                    }
+                }else if(name == null && size != null){
+                    ProductSize productSize = ProductSize.stringToProductSize(size);
+                    response = productService.findBySize(productSize, PageRequest.of(page - 1, 10)).toList();
+                }else{
+                    Optional<List<Product>> product = productService.findByName(name);
+                    if(product.isPresent())
+                        response = product.get();
+                }
+
+                return ResponseEntity.ok(response);
             }
         }
+    }
 
-        ProductSize productSize = ProductSize.stringToProductSize(size);
-        Optional<Product> product = productService.findByNameAndSize(name, productSize);
-
-        if (product.isPresent()){
-            List<Product> lp = new ArrayList<Product>();
-            lp.add(product.get());
-            return ResponseEntity.ok(lp);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/maxPages")
+    public ResponseEntity<Integer> getPurchaseHistoryMaxPages(@RequestParam(required = false) Boolean isDistinct){
+        isDistinct = isDistinct != null && isDistinct;
+        if(isDistinct) return ResponseEntity.ok(productService.findAllNames(PageRequest.of(0, 10)).getTotalPages());
+		return ResponseEntity.ok(productService.findAll(PageRequest.of(0, 10)).getTotalPages());
     }
 
     @PostMapping

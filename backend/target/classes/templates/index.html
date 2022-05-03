@@ -1,300 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Softwear - Softest Wereables On The Market</title>
-        <!-- Favicon-->
-        <link rel="icon"  href="../assets/icon.svg" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-        <!-- FontAwesome CDN -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></link>
-    </head>
-    <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- bg-light -->
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/"><img src="../assets/full-logo-new.svg" style = "width: 5vw"></a>
-                <a class="navbar-brand-2 user-icon-small-screen" href="./login.html"><img src="../assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex cart-icon">
-                        <a class="btn btn-outline-dark" href="./cart.html">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </a>
-                    </form>
-                    
-                </div>
-                <a class="navbar-brand-2 user-icon-big-screen" href="./login.html"><img src="../assets/user-icon.png" class="user-icon" style = "width: 3vw"></a>
-            </div>
-        </nav>
-        <!-- Header-->
-            <!-- <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder softFont">Softwear</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">The softest wereables on the internet</p>
-                </div>
-            </div> -->
-            
-        <div id="header">
-    
+{{>header}}
+        <meta id="username" content="{{username}}"/>
+        <div id="header">   
             <div class="item banner-big-screen"><img src="../assets/banner1.webp"></div>
-            <div class="item banner-small-screen"><img src="../assets/banner1-movil.webp"></div>
-    
+            <div class="item banner-small-screen"><img src="../assets/banner1-movil.webp"></div>    
         </div>
     
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center" id="products">
+                    {{#products}}
                     <div class="col mb-5">
-                        <div class="card h-100 product">
+                        <div id="product-{{id}}" class="card h-100 product">
+                            <meta class="product-id" content="{{id}}"/>
                             <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon"><i class="fa-solid fa-heart"></i></div>
+                            <div id="product-{{id}}-fav-badge" class="badge product-fav-badge bg-dark text-white position-absolute favIcon" onclick="wishlist({{id}}, '{{name}}')"><i class="fa-solid fa-heart"></i></div>
                             <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item1.webp" alt="..." /></a>
+                            <a href="/productView/{{id}}"><img class="card-img-top" src="{{images.0}}" alt="Product{{id}}" /></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Softcoat</h5>
+                                    <h5 class="fw-bolder product-name">{{name}}</h5>
                                     <!-- Product price-->
-                                    $49.99
+                                    ${{price}}
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/productView/{{id}}">View options</a></div>
                                 <!-- if product is in wish list print fav icon -->
-                                <i class="fa-solid fa-heart"></i>
+                                <i id="product-{{id}}-fav-icon" class="product-fav-icon fa-solid fa-heart"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100 product">
-                            <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon" style="top: 0.5rem; right: 0.5rem"><i class="fa-solid fa-heart"></i></div>
-                            <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item2.webp" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Leather jacket</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto add-cart" id="add-cart-1" data-id="1643" data-name="Leather Jacket" data-price="18.00">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100 product">
-                            <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon" style="top: 0.5rem; right: 0.5rem"><i class="fa-solid fa-heart"></i></div>
-                            <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item3.webp" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Softcoat v2</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100 product">
-                            <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon" style="top: 0.5rem; right: 0.5rem"><i class="fa-solid fa-heart"></i></div>
-                            <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item4.webp" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Coal Jacket</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100 product">
-                            <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon" style="top: 0.5rem; right: 0.5rem"><i class="fa-solid fa-heart"></i></div>
-                            <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item5.webp" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Cloudy Pants</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $24.99
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100 product">
-                            <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon" style="top: 0.5rem; right: 0.5rem"><i class="fa-solid fa-heart"></i></div>
-                            <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item6.webp" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Paris Shirt</h5>
-                                    <!-- Product price-->
-                                    $27.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100 product">
-                            <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon" style="top: 0.5rem; right: 0.5rem"><i class="fa-solid fa-heart"></i></div>
-                            <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item7.webp" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">SoftTop</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100 product">
-                            <!-- Fav badge-->
-                            <div class="badge bg-dark text-white position-absolute favIcon" style="top: 0.5rem; right: 0.5rem"><i class="fa-solid fa-heart"></i></div>
-                            <!-- Product image-->
-                            <a href="./productView.html"><img class="card-img-top" src="../assets/productos/item8.webp" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Tank Top</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent product-actions">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
+                    {{/products}}            
                 </div>
+                <meta id="max-pages" content="{{maxPages}}"/>
+                {{#hasNext}}
+	            <div class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" onclick="more()">More</a></div>
+	            {{/hasNext}}
             </div>
         </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Softwear 2022</p></div> <!--<script>Date().getFullYear()</script> -->
-        </footer>
-        <!-- JQuery CDN-->
-        <script
-			  src="https://code.jquery.com/jquery-3.6.0.min.js"
-			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			  crossorigin="anonymous"></script>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Carousel JQuery Plugin-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-        <!-- Cart Jquery Plugin -->
-        <!-- <script src="https://unpkg.com/cart-localstorage@latest/dist/cart-localstorage.min.js"></script> -->
-        <!-- Cart Custom JS-->
-        <script src="../js/cart.js"></script>
-    </body>
-</html>
+
+<script src="js/index.js"></script>
+{{>footer}}
