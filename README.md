@@ -1,5 +1,4 @@
-Demo Video: 
-[![DEMO VIDEO](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://youtu.be/vSC7ke8BHy8)
+Demo Video: [Click here!](https://youtu.be/vSC7ke8BHy8)
 
 ![Logo SoftWear](startbootstrap-shop-homepage-gh-pages/assets/full-logo-white-bg.jpeg)
 
@@ -551,8 +550,8 @@ I worked on components, service and models of transactions on angular.
 
 ##### Important Files
 
-*[transaction.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/services/transactions.service.ts)
-*[webapp5-compile.Dockerfile](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/docker/webapp5-compile.Dockerfile)
-*[cart.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/cart/cart.component.ts)
-*[wishlist.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/wishlist/wishlist.component.ts)
-*[purchase-history.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/purchase-history/purchase-history.component.ts)
+* [transaction.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/services/transactions.service.ts)
+* [webapp5-compile.Dockerfile](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/docker/webapp5-compile.Dockerfile)
+* [cart.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/cart/cart.component.ts)
+* [wishlist.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/wishlist/wishlist.component.ts)
+* [purchase-history.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/purchase-history/purchase-history.component.ts)
