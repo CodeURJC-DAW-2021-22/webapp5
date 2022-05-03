@@ -1,0 +1,91 @@
+<adminHeader></adminHeader>
+<section class="py-5">
+  <div class="container" id="manage-products-container">
+      <!-- Table-->
+      <div class="row">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Size</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template *ngFor="let product of products | keyvalue" >
+                <tr id="product-{{product.value.id}}">
+                  <td scope="row" class="product-id">{{product.value.id}}</td>
+                  <td class="product-name" >{{product.value.name}}</td>
+                  <td class="product-description">{{product.value.description}}</td>
+                  <td class="product-price" >{{product.value.price}}</td>
+                  <td class="product-stock" >{{product.value.stock}}</td>
+                  <td class="product-size">{{product.value.size}}</td>
+                  <td><button class="btn btn-primary" type="button" data-id="{{product.value.id}}" (click)="editProductLoad(product.value.id);"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                  <td><button data-id="{{product.value.id}}" (click)="deleteProduct(product.value.id)" class="btn btn-primary" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                </tr>
+                </ng-template>
+              </tbody>
+          </table>
+      </div>
+
+
+     <!--<meta id="max-pages" content="{{maxPages}}"/>-->
+
+      <div class="row justify-content-start">
+        <div *ngIf="this.currentPage < this.maxPages" class="row p-2"><a id="more-btn" class="btn btn-outline-dark m-auto w-75 text-center fw-bold text-uppercase" (click)="more()">More</a></div>
+        <button class="btn btn-primary" id="button-add-product" type="button" (click)="addProductLoad()" style=" margin: 3px">Add Product</button>
+      </div>
+
+      <!-- modal add / edit product data-->
+      <div class="modal fade" id="modalAddEditProductData">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalAddEditProduct">Edit Product Data</h5>
+                      <button type="button" class="btn-close" (click)="close()" aria-label="Close"></button>
+                  </div>
+                  <form id="formProducts">
+                      <div class="modal-body">
+                              <input type="hidden" id="mode" name="mode">
+                              <input type="hidden" id="editId" name="id">
+
+                              <div class="form-group">
+                                  <label for="editProductName">Name *</label>
+                                  <input type="text" class="form-control" id="editProductName" placeholder="name" [(ngModel)]="name" name="name" required>
+                              </div>
+                              <div class="form-group">
+                                  <label for="editDescription">Description</label>
+                                  <input type="description" class="form-control" id="editDescription" [(ngModel)]="description" placeholder="description" name="description">
+                              </div>
+                              <div class="form-group">
+                                  <label for="editPrice">Price *</label>
+                                  <input type="text" class="form-control" id="editPrice" placeholder="price" [(ngModel)]="price" name="price" required>
+                              </div>
+                              <div class="form-group">
+                                  <label for="editSize">Size *</label>
+                                  <input type="text" class="form-control" id="editSize" placeholder="size" [(ngModel)]="size" name="size" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="editStock">Stock *</label>
+                                <input type="text" class="form-control" id="editStock" placeholder="stock" [(ngModel)]="stock" name="stock" required>
+                            </div>
+                              <div class="form-group">
+                                <label for="editImages">Image *</label>
+                                <input type="file" class="form-control" id="editImages" placeholder="size" [(ngModel)]="imageFile" name="images">
+                            </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" id="dismiss-modal-products" (click)="close()">Close</button>
+                          <button type="button" class="btn btn-primary" id="saveButton" (click)="done()">Save</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -106,6 +107,11 @@ public class ProductRESTController {
                 return ResponseEntity.ok(response);
             }
         }
+    }
+
+    @GetMapping("/maxPages")
+    public ResponseEntity<Integer> getPurchaseHistoryMaxPages(){
+		return ResponseEntity.ok(productService.findAll(PageRequest.of(0, 10)).getTotalPages());
     }
 
     @PostMapping

@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login.component';
 import { AboutComponent } from './components/about.component';
 import { ProductViewComponent } from './components/products/productView.component';
 import { ManageUsersComponent } from './components/manageUsers.component';
+import { ManageProductsComponent } from './components/manageProducts.component';
 
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'admin/home', component: AdminHomeComponent},
   {path: 'userProfile', component: UserProfileComponent},
   {path: 'admin/manageUsers', component: ManageUsersComponent},
+  {path: 'admin/manageProducts', component: ManageProductsComponent},
 
   // TRANSACTIONS
 
