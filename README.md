@@ -305,6 +305,47 @@ You need to install docker in your system in order to execute this script. Also,
 
 * [OpenApi JSON](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/api-docs/api-docs.json)
 * [OpenApi HTML](https://rawcdn.githack.com/CodeURJC-DAW-2021-22/webapp5/0becb842fc6f969684dcde3be654949e32f543b6/api-docs/api-docs.html)
+
+## Angular
+
+Dependencies:
+
+* npm
+* angular
+
+In order to execute and build the application with angular, you would need to install npm (Node Package Manager) on your system
+
+Once installed, you could install angular client running the following command in frontend directory:
+
+```bash
+npm install -g @angular/cli
+```
+
+Now, you could install the application dependencies running:
+
+```bash
+npm install
+```
+
+### Execution
+
+You could execute the spa running:
+
+```bash
+ng serve --proxy-config src/app/proxy.config.json
+```
+
+NOTE: You might need to modify the file src/app/proxy.config.json
+
+### Building
+
+You could build the SPA running the following command:
+
+```bash
+ng build --base-href="/new/"
+```
+
+NOTE: We use --base-href="/new/" in order to serve it from the same service than the old application. If you do not need it, you could skip this argument.
 	
 ## Participation
 
