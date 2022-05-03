@@ -163,6 +163,7 @@ Property list of each entity:
 *Phase 3
 ![class_diagram](readmeAssets/class_diagram_phase3.png)
 *Phase 4
+
 ![component diagram](readmeAssets/components_diagram.PNG)
 ## Algorithms
 
