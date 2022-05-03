@@ -1,3 +1,6 @@
+Demo Video: 
+[![DEMO VIDEO](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://youtu.be/vSC7ke8BHy8)
+
 ![Logo SoftWear](startbootstrap-shop-homepage-gh-pages/assets/full-logo-white-bg.jpeg)
 
 # Softwear
@@ -16,8 +19,6 @@ We provide a catalog that can be filtered through different categories, allowing
 | Pablo Pinillos Trigueros      | p.pinillos.2019@alumnos.urjc.es  | PabloPinillos    |
 | Adrián Sánchez Guirado        | a.sanchezgu.2019@alumnos.urjc.es | a-sanchezgu-2019 |
 | Jorge Esteban Pérez           | j.esteban.2019@alumnos.urjc.es   | JEstebanPerez    |
-| Ana Cristina Acosta Hernández | ac.acosta.2017@alumnos.urjc.es   | AnaAcostaH       |
-| Mario Rojas Padrón            | m.rojas.2019@alumnos.urjc.es     | MarioRP-01       |
 
 
 ## Screens
@@ -165,6 +166,7 @@ Property list of each entity:
 *Phase 4
 
 ![component diagram](readmeAssets/components_diagram.PNG)
+
 ## Algorithms
 
 Our app tracks the least favorite products and calculates a discount for them based on their popularity ranking and a minimum price every product has.
@@ -528,8 +530,29 @@ I worked on components, service and models on angular.
 
 ##### Important Files
 
-*[user.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/services/user.service.ts)
-*[login.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/login.component.ts)
-*[manageUsers.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/manageUsers.component.ts)
-*[manageUsers.component.html](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/manageUsers.component.html)
-*[userProfile.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/userProfile.component.ts)
+* [user.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/services/user.service.ts)
+* [login.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/login.component.ts)
+* [manageUsers.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/manageUsers.component.ts)
+* [manageUsers.component.html](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/manageUsers.component.html)
+* [userProfile.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/userProfile.component.ts)
+
+#### Adrián
+
+I worked on components, service and models of transactions on angular.
+
+##### Important Commits
+
+* [Cart, wishlist and purchase history](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/cae3409893adbd3dd932a7821454bb15a55289f0) where I created the components of cart, wishlist and purchase history.
+* [Updated Angular Transaction Service](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/68ba7acc9444526a6d5e7b91fa8d1568133e5624) where I added new functions to the angular's transactions' service.
+* [Added Number in Cart Button](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/7f59d7d3f94c892207acad41b684f89c5d7b4bbb) where I added the request to the controller and the interaction with this number from other controlers.
+* [Docker Initial Setup](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/ada93356c9638ba500044f10d2323afaab4b99d3) where I updated the dockerfile and make some changes in order to build the application with docker.
+* [Main page update](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/437405df467720ce3d6cb382d21268c0b1c3ef8d) where I modified productList components in order to show wishlist badges well and made it pageable.
+
+
+##### Important Files
+
+*[transaction.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/services/transactions.service.ts)
+*[webapp5-compile.Dockerfile](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/docker/webapp5-compile.Dockerfile)
+*[cart.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/cart/cart.component.ts)
+*[wishlist.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/wishlist/wishlist.component.ts)
+*[purchase-history.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/main/frontend/src/app/components/purchase-history/purchase-history.component.ts)
