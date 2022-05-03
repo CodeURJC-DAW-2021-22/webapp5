@@ -17,18 +17,18 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-template *ngFor="let product of products | keyvalue" >
-                <tr id="product-{{product.value.id}}">
-                  <td scope="row" class="product-id">{{product.value.id}}</td>
-                  <td class="product-name" >{{product.value.name}}</td>
-                  <td class="product-description">{{product.value.description}}</td>
-                  <td class="product-price" >{{product.value.price}}</td>
-                  <td class="product-stock" >{{product.value.stock}}</td>
-                  <td class="product-size">{{product.value.size}}</td>
-                  <td><button class="btn btn-primary" type="button" data-id="{{product.value.id}}" (click)="editProductLoad(product.value.id);"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
-                  <td><button data-id="{{product.value.id}}" (click)="deleteProduct(product.value.id)" class="btn btn-primary" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+              <ng-template ngFor let-product [ngForOf]="products">
+                <tr id="product-{{product.id}}" >
+                  <td scope="row" class="product-id">{{product.id}}</td>
+                  <td class="product-name" >{{product.name}}</td>
+                  <td class="product-description">{{product.description}}</td>
+                  <td class="product-price" >{{product.price}}</td>
+                  <td class="product-stock" >{{product.stock}}</td>
+                  <td class="product-size">{{product.size}}</td>
+                  <td><button class="btn btn-primary" type="button" data-id="{{product.id}}" (click)="editProductLoad(product.id);"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                  <td><button data-id="{{product.id}}" (click)="deleteProduct(product.id)" class="btn btn-primary" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                 </tr>
-                </ng-template>
+              </ng-template>
               </tbody>
           </table>
       </div>

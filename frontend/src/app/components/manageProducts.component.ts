@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {Component, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../models/product.model';
 import { ProductsService } from '../services/products.service';
@@ -24,7 +24,7 @@ export class ManageProductsComponent{
   event: string;
   imageFile?: File = undefined;
 
-  products: { [name: number]: Product } = {};
+  products : Product[]= [];
 
   currentPage: number=1;
   maxPages: number=1;
@@ -43,12 +43,7 @@ export class ManageProductsComponent{
       error: error => console.error(error)
     });
 
-    this.productsService.getProducts(this.currentPage).subscribe(
-      products => {products.forEach(
-        product => this.products[product.id!] = product
-      )},
-      error => console.error(error)
-    );
+    this.loadProducts(this.currentPage);
 
   }
 
@@ -59,20 +54,20 @@ export class ManageProductsComponent{
   }
 
   private loadProducts(page: number) {
-    this.productsService.getProducts(page).subscribe({
+    this.httpClient.get("/api/products?isDistinct=false&page="+page).subscribe({
       next: history => {
-        for(let u of history)
-          this.products[u.id!] = u;
+        for(let u of history as Product[])
+          this.products.push(u);
       },
       error: error => console.error(error)
-    });
+    })
   }
 
 
   deleteProduct(id?: number){
   this.productsService.deleteProduct(id!).subscribe(
     product => {
-      delete this.products[id!];
+      this.products.forEach((element,index)=>{if(element.id==id!){ this.products.splice(index,1);}});
     },
     error => console.error(error)
   );
@@ -127,13 +122,13 @@ export class ManageProductsComponent{
     if(this.event.match("update")){
 
       this.productsService.updateProduct(data).subscribe(
-        product => {this.products[this.id!] = product, this.close()},
+        product => {this.products[this.id-1] = product, this.close()},
         error => console.error(error)
       );
 
     }else{
       this.productsService.addProduct(data).subscribe(
-        product => {this.products[product.id!] = product, this.close()},
+        product => {this.products.push(product), this.close()},
         error => console.error(error)
       );
       if(this.imageFile !== undefined)
