@@ -110,7 +110,9 @@ public class ProductRESTController {
     }
 
     @GetMapping("/maxPages")
-    public ResponseEntity<Integer> getPurchaseHistoryMaxPages(){
+    public ResponseEntity<Integer> getPurchaseHistoryMaxPages(@RequestParam(required = false) Boolean isDistinct){
+        isDistinct = isDistinct != null && isDistinct;
+        if(isDistinct) return ResponseEntity.ok(productService.findAllNames(PageRequest.of(0, 10)).getTotalPages());
 		return ResponseEntity.ok(productService.findAll(PageRequest.of(0, 10)).getTotalPages());
     }
 
