@@ -23,6 +23,7 @@ import { ProductViewComponent } from './components/products/productView.componen
 import { CartComponent } from './components/cart/cart.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
+import { ManageProductsComponent } from './components/manageProducts.component';
 
 schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
@@ -30,7 +31,7 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
   declarations: [
     AppComponent, HeaderComponent, AdminHeaderComponent, FooterComponent, IndexComponent, LoginComponent, 
     AboutComponent, ProductsListComponent, ProductViewComponent, CartComponent, SuccessfulPaymentComponent, OutOfStockComponent, WishlistComponent, 
-    PurchaseHistoryComponent, AdminHomeComponent, UserProfileComponent, ManageUsersComponent
+    PurchaseHistoryComponent, AdminHomeComponent, UserProfileComponent, ManageUsersComponent, ManageProductsComponent
   ],
   imports: [
     BrowserModule,
