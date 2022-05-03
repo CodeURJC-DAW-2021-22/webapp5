@@ -162,7 +162,8 @@ Property list of each entity:
 ![class_diagram](readmeAssets/class_diagram.jpeg)
 *Phase 3
 ![class_diagram](readmeAssets/class_diagram_phase3.png)
-
+*Phase 4
+![component diagram](readmeAssets/components_diagram.PNG)
 ## Algorithms
 
 Our app tracks the least favorite products and calculates a discount for them based on their popularity ranking and a minimum price every product has.
@@ -492,7 +493,7 @@ I have worked in the images uploads when creating a new product, as well as crea
 * [manageProducts.js](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/619fbfd71c39d6adb520ca90c37382069ea73e9a/backend/src/main/resources/static/js/manageProducts.js)
 * [PoductRESTController.java](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/619fbfd71c39d6adb520ca90c37382069ea73e9a/backend/src/main/java/com/softwear/webapp5/controller/ProductRESTController.java)
 
-### Phase 3
+### Phase 4
 
 #### Pablo
 
@@ -512,3 +513,22 @@ I developed the product-related files (models, services, components).
 * [productList.component.html](https://github.com/CodeURJC-DAW-2021-22/webapp5/frontend/src/app/components/products/productList.component.html)
 * [products.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/frontend/src/app/components/service/products.service.ts)
 
+#### Jorge
+
+I worked on components, service and models on angular.
+
+##### Important Commits
+
+* [User login register and profile added](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/64bf9ad2d7826cfa1f4173bb33f929703b2714ee)
+* [Add user service and manage users](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/42255c5dd85d6a4a57179ddef5549fd47143a67e)
+* [Adding pageable and async](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/91aae4a4a910f41cacbe958db68980def89ea5f9)
+* [Added charts to admin home](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/7f3cafa464d481c159ada8899b95df559741967e)
+
+
+##### Important Files
+
+*[user.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/services/user.service.ts)
+*[login.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/login.component.ts)
+*[manageUsers.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/manageUsers.component.ts)
+*[manageUsers.component.html](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/manageUsers.component.html)
+*[userProfile.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/develop/frontend/src/app/components/userProfile.component.ts)
