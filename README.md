@@ -491,3 +491,24 @@ I have worked in the images uploads when creating a new product, as well as crea
 
 * [manageProducts.js](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/619fbfd71c39d6adb520ca90c37382069ea73e9a/backend/src/main/resources/static/js/manageProducts.js)
 * [PoductRESTController.java](https://github.com/CodeURJC-DAW-2021-22/webapp5/blob/619fbfd71c39d6adb520ca90c37382069ea73e9a/backend/src/main/java/com/softwear/webapp5/controller/ProductRESTController.java)
+
+### Phase 3
+
+#### Pablo
+
+I developed the product-related files (models, services, components).
+
+##### Important Commits
+
+* [[NOT WORKING] manageProducts](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/d161ea85e3f6e69764373488b87a74548933e2f9)
+* [index and productView](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/807dd2e2faa7b5838928c36c173aa4299d769459)
+* [products [NOT WORKING]](https://github.com/CodeURJC-DAW-2021-22/webapp5/commit/73cfe0b68cab868ad5ff54f84b1ed3433a1a6179)
+
+##### Important Files
+
+* [productView.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/frontend/src/app/components/products/productView.component.ts)
+* [productView.component.html](https://github.com/CodeURJC-DAW-2021-22/webapp5/frontend/src/app/components/products/productView.component.html)
+* [productList.component.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/frontend/src/app/components/products/productList.component.ts)
+* [productList.component.html](https://github.com/CodeURJC-DAW-2021-22/webapp5/frontend/src/app/components/products/productList.component.html)
+* [products.service.ts](https://github.com/CodeURJC-DAW-2021-22/webapp5/frontend/src/app/components/service/products.service.ts)
+
