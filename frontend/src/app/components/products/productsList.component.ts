@@ -60,7 +60,7 @@ export class ProductsListComponent {
           error: error => console.error(error)
         });
       } else {
-        this.transactionsService.addProductToWishlist(this.entries[index].product.id!).subscribe({
+        this.transactionsService.deleteProductFromWishlist(this.entries[index].product.id!).subscribe({
           next: _ => this.updateWishlistState(index),
           error: error => console.error(error)
         });

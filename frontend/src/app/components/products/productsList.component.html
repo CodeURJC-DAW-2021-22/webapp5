@@ -5,7 +5,7 @@
             <div *ngFor="let entry of entries; let index = index" class="col mb-5">
                 <div id="product-{{entry.product.id}}" class="card h-100 product">
                     <meta class="product-id" content="{{entry.product.id}}"/>
-                    <div *ngIf="entry.inWishlist; else noWish" id="product-{{entry.product.id}}-fav-badge" class="badge product-fav-badge bg-dark text-white position-absolute favIcon" (click)="setWishlist(index, true)"><i class="fa-solid fa-heart"></i></div>
+                    <div *ngIf="entry.inWishlist; else noWish" id="product-{{entry.product.id}}-fav-badge" class="badge product-fav-badge bg-dark text-white position-absolute favIcon" (click)="setWishlist(index, false)"><i class="fa-solid fa-heart"></i></div>
                     <ng-template #noWish>
                       <div id="product-{{entry.product.id}}-fav-badge" class="badge product-fav-badge bg-white text-black position-absolute favIcon" (click)="setWishlist(index, true)"><i class="fa-solid fa-heart"></i></div>
                     </ng-template>

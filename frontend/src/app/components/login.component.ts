@@ -1,4 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
@@ -13,8 +14,10 @@ schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 export class LoginComponent {
 
-  constructor(public loginService: LoginService, public userService: UserService) {
-
+  constructor(public loginService: LoginService, public userService: UserService, private router: Router) {
+    this.userService.getUserLogged().subscribe({
+      next: _ => this.router.navigate(['/'])
+    });
   }
 
   logIn(event: any, user: string, pass: string) {
